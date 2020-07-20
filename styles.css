@@ -1,0 +1,28 @@
+#container {
+  margin-left: auto;
+  margin-right: auto;
+  width: 80%;
+}
+
+#calendarRow {
+  display: flex;
+  text-align: center;
+}
+
+#dates {
+  width: 200px;
+  height: 200px;
+  border: #000000 1px solid;
+}
+
+#header {
+  width: 200px;
+  height: 50px;
+  border: #000000 1px solid;
+}
+
+#month {
+  text-align: center;
+  font-size: 25px;
+  padding: 15px;
+}
