@@ -2,11 +2,13 @@
   margin-left: auto;
   margin-right: auto;
   width: 80%;
+  float: left;
 }
 
 #calendarRow {
   display: flex;
   text-align: center;
+  justify-content: center;
 }
 
 #dates {
@@ -25,4 +27,25 @@
   text-align: center;
   font-size: 25px;
   padding: 15px;
+}
+
+#topRow {
+  display: flex;
+  text-align: center;
+  justify-content: center;
+}
+
+#arrows {
+  width: 30px;
+}
+
+#eventBox {
+  float: left;
+  display: flex;
+  flex-direction: column;
+}
+
+#appointments {
+  border: #000000 1px solid;
+  height: 150px;
 }

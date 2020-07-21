@@ -1,22 +1,15 @@
 export const data = {
-  appointments:[
-    {
-      id:0,
-      eventName: "a",
-      notes: "",
-      time: ""
-    },
-    {
-      id:1,
-      eventName: "b",
-      notes: "",
-      time: ""
-    }
-  ],
+  appointments: [],
   theme: {
     light: [],
     dark: [],
     gradient: []
   }
+}
 
+export const appointments = {
+  id: 0,
+  eventName: "",
+  notes: "",
+  time: "
 }
