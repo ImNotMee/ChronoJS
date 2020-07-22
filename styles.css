@@ -43,9 +43,14 @@
   float: left;
   display: flex;
   flex-direction: column;
+  margin-left: 3%;
+}
+
+#app {
+  max-width: 250px;
 }
 
 #appointments {
   border: #000000 1px solid;
-  height: 150px;
+  max-width: 250px;
 }
