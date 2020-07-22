@@ -1,40 +1,25 @@
 const MONTHS = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-let today = {year:2020, month: 6};
-let appointmentID = 0;
+let today = {year: 2020, month: 6};
 
 class Calendar {
   constructor(year, month) {
-    this.appointments = [];
     this.theme = [];
     this.year = year;
     this.month = month;
-  }
-}
-
-class Appointment {
-  constructor(name, notes, type) {
-    this.id = appointmentID;
-    this.name = name;
-    this.notes = notes;
-    this.startTime = new Date();
-    this.endTime = new Date();
-    this.type = type;
-    appointmentID ++;
+    this.appointments = getAppointments(month);
   }
 }
 
 startCalendar = () => {
-  let curr = new Date();
-  const calendar = new Calendar(2020, 6);
+  let calendar = new Calendar(2020, 6);
+  renderCalendar(calendar);
 }
 
 
-
-
-const getMonthData = () => {
+const getMonthData = (calendar) => {
   let d = new Date();
-  const firstDay = new Date(today.year, today.month, 1);
-  const numOfDays = new Date(today.year, today.month, 0);
+  const firstDay = new Date(calendar.year, calendar.month, 1);
+  const numOfDays = new Date(calendar.year, calendar.month, 0);
   // first element is the month (in a num), second is the number of days in this month
   return [firstDay.getDay(), numOfDays.getDate()];
 };
@@ -44,11 +29,22 @@ const getMonth = () => {
   return d.getMonth();
 };
 
-const renderCalendar = () => {
+const renderCalendar = (calendar) => {
   // For setting up the grid based on month
-  renderMonth(MONTHS[today.month]);
-  renderDates();
-  addThisMonthAppointments(today.month);
+  renderMonth(MONTHS[calendar.month], calendar);
+  renderDates(calendar);
+  addThisMonthAppointments(calendar.month);
+}
+
+const sortingAppointments = (apps) => {
+  let sorted = apps;
+  apps.sort((appA, appB) => {
+    const timeA = new Date(appA.startTime);
+    const timeB = new Date(appB.startTime);
+
+    return (timeA === timeB) ? 0 : (timeA > timeB) ? 1 : -1;
+  })
+  return sorted;
 }
 
 const getAppointments = (month) => {
@@ -67,7 +63,16 @@ const getAppointments = (month) => {
       startTime: new Date(2020,6, 11),
       endTime: new Date(2020, 6,11),
       type: "#35d45f"
-    }];
+    },
+    {
+      id: 2,
+      eventName: "asda",
+      notes: "s",
+      startTime: new Date(2020,5, 11),
+      endTime: new Date(2020, 5,11),
+      type: "#35d45f"
+    }
+  ];
   let t = appointments.filter(app => app.startTime.getMonth() === month);
   return t;
 }
@@ -118,8 +123,8 @@ const addThisMonthAppointments = (month) => {
   }
 }
 
-const updateCalender = () => {
-  const currMonthData = getMonthData();
+const updateCalender = (calendar) => {
+  const currMonthData = getMonthData(calendar);
   let date = 1;
   let temp = 0;
   let elements = document.querySelectorAll('#dates');
@@ -132,11 +137,11 @@ const updateCalender = () => {
     }
     temp ++;
   })
-  addThisMonthAppointments(today.month);
+  addThisMonthAppointments(calendar.month);
 }
 
-const renderDates = () => {
-  const currMonthData = getMonthData();
+const renderDates = (calendar) => {
+  const currMonthData = getMonthData(calendar);
   let date = 1;
   let temp = 0;
   let calBody = document.getElementById("container");
@@ -159,7 +164,7 @@ const renderDates = () => {
   }
 }
 
-const renderMonth = (currMonth) => {
+const renderMonth = (currMonth, calendar) => {
   let month = document.getElementById("month");
   month.innerHTML = currMonth +" " + today.year;
 }
@@ -173,7 +178,8 @@ const nextMonth = () => {
       today.month = 0;
       today.year = today.year + 1;
   }
-  updateCalender();
+  const newCal = new Calendar(today.year, today.month);
+  updateCalender(newCal);
 };
 
 const prevMonth = () => {
@@ -185,7 +191,8 @@ const prevMonth = () => {
     today.year = today.year - 1;
     today.month = 11;
   }
-  updateCalender();
+  const newCal = new Calendar(today.year, today.month);
+  updateCalender(newCal);
 };
 
-renderCalendar();
+startCalendar();

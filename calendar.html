@@ -45,7 +45,41 @@
           <p id="weekDates">Saturday</p>
         </div>
       </div>
-      <script>renderCalendar();</script>
+      <script>startCalendar();</script>
     </div>
+
+    <div id="options">
+      <h1>Appointments</h1>
+      <form id='appAddForm'>
+     		Appointment Name:
+        <input id='newAppName' type="text" placeholder="">
+     		Start Name:
+        <input id='newAppStartTime' type="text" placeholder="YYYY-MM-DDTHH:MM">
+     		End Time:
+        <input id='newAppEndTime' type="text" placeholder="YYYY-MM-DDTHH:MM">
+        Notes:
+        <input id='newAppNotes' type="text" placeholder="">
+        Appointment Type:
+        <select id="newAppType" name="">
+          <option value="important" selected>Important</option>
+          <option value="notImportant">Not Important</option>
+          <option value="urgent">Urgent</option>
+        </select>
+     		<input type="submit" value="Add Appointment">
+     	</form>
+    </div>
+
+    <div id="options">
+      <h1>Setting</h1>
+      <form id='themeOptions'>
+        Theme:
+        <select id="theme" name="">
+          <option value="light" selected>Light</option>
+          <option value="dark">Dark</option>
+        </select>
+        <input type="submit" value="Set Theme">
+      </form>
+    </div>
+    <script src="index.js"></script>
   </div>
 <body>
