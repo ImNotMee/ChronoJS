@@ -2,7 +2,6 @@
 
 <head>
   <title>Chrono JS</title>
-  <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
   <meta content="utf-8" http-equiv="encoding">
   <link rel="stylesheet" href="styles.css">
   <script src="calendar.js"></script>
@@ -13,6 +12,17 @@
     <div id="eventBox">
       <h2>Upcoming Appointments</h2>
       <div id="appointments"></div>
+      <div id="options">
+        <h2>Setting</h2>
+        <form id='themeOptions'>
+          Theme:
+          <select id="theme" name="">
+            <option value="light" selected>Light</option>
+            <option value="dark">Dark</option>
+          </select>
+          <input type="submit" value="Set Theme">
+        </form>
+      </div>
     </div>
     <div id="container">
       <div id="calendarRow">
@@ -66,18 +76,6 @@
             <option value="urgent">Urgent</option>
           </select>
           <input type="submit" value="Add Appointment">
-        </form>
-      </div>
-
-      <div id="options">
-        <h2>Setting</h2>
-        <form id='themeOptions'>
-          Theme:
-          <select id="theme" name="">
-            <option value="light" selected>Light</option>
-            <option value="dark">Dark</option>
-          </select>
-          <input type="submit" value="Set Theme">
         </form>
       </div>
       <script src="index.js"></script>

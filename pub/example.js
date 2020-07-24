@@ -1,4 +1,4 @@
-import { Calendar } from "./calendar.js";
+import { startCalendar } from "./calendar.js";
 
 const appointments = [
   {  id: 0,
@@ -6,7 +6,7 @@ const appointments = [
     notes: "leave 16 mins early",
     startTime: new Date(2020,6, 16),
     endTime: new Date(2020,6, 16),
-    type: "urgent"
+    type: "#ff6c61"
   },
   {
     id: 1,
@@ -14,7 +14,7 @@ const appointments = [
     notes: "buy gifts",
     startTime: new Date(2020,6, 11),
     endTime: new Date(2020, 6,11),
-    type: "important"
+    type: "#fff175"
   },
   {
     id: 2,
@@ -22,9 +22,37 @@ const appointments = [
     notes: "Playing Pool",
     startTime: new Date(2020,5, 11),
     endTime: new Date(2020, 5,11),
-    type: "notImportant"
+    type: "#35d45f"
+  },
+  {
+    id: 3,
+    name: "Final Exam",
+    notes: "",
+    startTime: new Date(2020,5, 11, 3, 20, 0),
+    endTime: new Date(2020, 5,11, 7, 30, 0),
+    type: "#fff175"
+  },
+  {
+    id: 4,
+    name: "Enjoying the sun",
+    notes: "hiking",
+    startTime: new Date(2020,6, 28, 10, 0),
+    endTime: new Date(2020, 6,28,17,0),
+    type: "#35d45f"
+  },
+  {
+    id: 5,
+    name: "Pick Up Kids from class",
+    notes: "",
+    startTime: new Date(2020,8, 1, 18, 0),
+    endTime: new Date(2020, 8, 1, 18, 0),
+    type: "#ff6c61"
   }
 ];
 
-const calendar = new Calendar(2020, 6);
-startCalendar(calendar);
+const calendar = {
+  theme: "light",
+  year: 2020,
+  month: 6,
+  appointments: appointments
+}

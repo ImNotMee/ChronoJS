@@ -23,7 +23,7 @@ function loadAppointments() {
       notes: "leave 16 mins early",
       startTime: new Date(2020,6, 16),
       endTime: new Date(2020,6, 16),
-      type: "#fff175"
+      type: "#ff6c61"
     },
     {
       id: 1,
@@ -31,7 +31,7 @@ function loadAppointments() {
       notes: "buy gifts",
       startTime: new Date(2020,6, 11),
       endTime: new Date(2020, 6,11),
-      type: "#35d45f"
+      type: "#fff175"
     },
     {
       id: 2,
@@ -40,6 +40,30 @@ function loadAppointments() {
       startTime: new Date(2020,5, 11),
       endTime: new Date(2020, 5,11),
       type: "#35d45f"
+    },
+    {
+      id: 3,
+      name: "Final Exam",
+      notes: "",
+      startTime: new Date(2020,5, 11, 3, 20, 0),
+      endTime: new Date(2020, 5,11, 7, 30, 0),
+      type: "#fff175"
+    },
+    {
+      id: 4,
+      name: "enjoying the sun",
+      notes: "hiking",
+      startTime: new Date(2020,6, 28, 10, 0),
+      endTime: new Date(2020, 6,28,17,0),
+      type: "#35d45f"
+    },
+    {
+      id: 5,
+      name: "Pick Up Kids from class",
+      notes: "",
+      startTime: new Date(2020,8, 1, 18, 0),
+      endTime: new Date(2020, 8, 1, 18, 0),
+      type: "#ff6c61"
     }
   ];
 	return appointments;
@@ -173,33 +197,37 @@ const renderDates = (calendar) => {
 
 const renderMonth = (calendar) => {
   const monthDiv = document.getElementById("month");
-  monthDiv.innerText = MONTHS[calendar.month] +" " + calendar.year;
+  if(monthDiv != null) {
+    monthDiv.innerText = MONTHS[calendar.month] +" " + calendar.year;
+  }
 }
 
-// const nextMonth = () => {
-//   if (today.month != 11) {
-//     renderMonth(MONTHS[today.month + 1]);
-//     today.month = today.month + 1;
-//   } else {
-//       renderMonth(MONTHS[0]);
-//       today.month = 0;
-//       today.year = today.year + 1;
-//   }
-//   const newCal = new Calendar(today.year, today.month);
-//   updateCalender(newCal);
-// };
-//
-// const prevMonth = () => {
-//   if (today.month != 0) {
-//     renderMonth(MONTHS[today.month - 1]);
-//     today.month = today.month - 1;
-//   } else {
-//     renderMonth(MONTHS[11]);
-//     today.year = today.year - 1;
-//     today.month = 11;
-//   }
-//   const newCal = new Calendar(today.year, today.month);
-//   updateCalender(newCal);
-// };
+const nextMonth = () => {
+  const currMonthYear = document.getElementById("month");
+  let temp = currMonthYear.innerText.split(" ");
+  const cal = new Calendar(parseInt(temp[1]), MONTHS.indexOf(temp[0]));
+  if (cal.month != 11) {
+    cal.month = cal.month + 1;
+  } else {
+    cal.month = 0;
+    cal.year = cal.year + 1;
+  }
+  renderMonth(cal);
+  updateCalender(cal);
+};
+
+const prevMonth = () => {
+  const currMonthYear = document.getElementById("month");
+  let temp = currMonthYear.innerText.split(" ");
+  const cal = new Calendar(parseInt(temp[1]), MONTHS.indexOf(temp[0]));
+  if (cal.month != 0) {
+    cal.month = cal.month - 1;
+  } else {
+    cal.year = cal.year - 1;
+    cal.month = 11;
+  }
+  renderMonth(cal);
+  updateCalender(cal);
+};
 
 startCalendar();

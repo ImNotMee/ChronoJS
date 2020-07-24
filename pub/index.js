@@ -14,13 +14,13 @@ class Appointment {
 
   typeConverter(type) {
     if (type === "urgent") {
-      return "#fc3126"
+      return "#ff6c61"
     }
     else if(type === "important") {
       return "#fff175"
     }
     else {
-      return "35d45f"
+      return "#35d45f"
     }
   }
 }
