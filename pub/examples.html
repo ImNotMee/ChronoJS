@@ -2,15 +2,15 @@
 
 <head>
   <title>Chrono JS</title>
-  <meta content="utf-8" http-equiv="encoding">
+  <meta charset="UTF-8">
   <link rel="stylesheet" href="styles.css">
-  <script src="calendar.js"></script>
+  <script src="examples.js"></script>
 </head>
 
 <body id="calendarBody">
   <div>
     <div id="eventBox">
-      <h2>Upcoming Appointments</h2>
+      <h2>Appointments</h2>
       <div id="appointments"></div>
       <div id="options">
         <h2>Setting</h2>
@@ -21,6 +21,14 @@
             <option value="dark">Dark</option>
           </select>
           <input type="submit" value="Set Theme">
+        </form>
+        <form id='romanOptions'>
+          Roman Numerals:
+          <select id="roman" name="">
+            <option value="off" selected>Off</option>
+            <option value="on">On</option>
+          </select>
+          <input type="submit" value="Change">
         </form>
       </div>
     </div>

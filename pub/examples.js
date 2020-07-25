@@ -155,6 +155,7 @@ const addThisMonthAppointments = (calendar) => {
 }
 
 const updateCalender = (calendar) => {
+  renderMonth(calendar);
   const currMonthData = getMonthData(calendar);
   let date = 1;
   let temp = 0;
@@ -173,10 +174,11 @@ const updateCalender = (calendar) => {
 
 const renderDates = (calendar) => {
   const currMonthData = getMonthData(calendar);
+  log(currMonthData[1]);
   let date = 1;
   let temp = 0;
   let calBody = document.getElementById("container");
-  for (let n = 0; n < 5; n ++) {
+  for (let n = 0; n < 6; n ++) {
     let calBox = document.createElement("div");
     calBox.id = "calendarRow";
     for (let i = 0; i < 7; i++) {
@@ -212,7 +214,6 @@ const nextMonth = () => {
     cal.month = 0;
     cal.year = cal.year + 1;
   }
-  renderMonth(cal);
   updateCalender(cal);
 };
 
@@ -226,7 +227,6 @@ const prevMonth = () => {
     cal.year = cal.year - 1;
     cal.month = 11;
   }
-  renderMonth(cal);
   updateCalender(cal);
 };
 

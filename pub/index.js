@@ -73,7 +73,14 @@ const addNewAppointment = (app) => {
   // adding to calendar
   let elements = document.querySelectorAll('#dates');
   for (let n = 0; n < elements.length; n++) {
-      if (elements[n].firstChild.nodeValue == app.startTime.getDate()) {
+    let temp = elements[n].innerText;
+    if (n >= 9) {
+         temp = temp.substring(0,2);
+    }
+    else {
+       temp = temp.substring(0,1);
+    }
+    if (parseInt(temp) == app.startTime.getDate()) {
         let appBox = document.createElement("div");
         appBox.id = "app";
         appBox.innerHTML = app.name.bold() + " - " + dateFormater(app.startTime) + "-" + dateFormater(app.endTime) +
@@ -102,5 +109,38 @@ function changeTheme(e) {
     calBody.style.color = '#ffffff';
   }
   else if(theme === "gradient") {
+  }
+}
+
+
+const ROMAN = ["I","II","III","IV","V","VI","VII","VIII","XI","X","XI",
+"XII","XIII","XIV","XV","XVI","XVII","XVII","XVIII","XIX","XX","XXI","XXII","XXIII","XXIV",
+"XXV","XXVI","XXVII","XXVII","XXVIII","XXIX","XXX","XXXI"];
+
+const romanForm = document.querySelector('#romanOptions');
+romanForm.addEventListener('submit', changeRomanNumerals);
+
+function changeRomanNumerals(e) {
+  e.preventDefault();
+  const selected = document.querySelector('#roman');
+  const roman = selected.options[selected.selectedIndex].value;
+  const dates = document.querySelectorAll("#dates");
+  let day = 0;
+  if (roman === "on") {
+    dates.forEach(date => {
+      if (date.innerText != "") {
+        date.innerText = ROMAN[day];
+        day ++;
+      }
+    });
+  }
+  else {
+      day = 1;
+      dates.forEach(date => {
+        if (date.innerText != "") {
+          date.innerText = day;
+          day ++;
+        }
+      });
   }
 }
