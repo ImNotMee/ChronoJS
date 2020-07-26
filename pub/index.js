@@ -30,11 +30,14 @@ function removeAppointment(id) {
     return newAppointments;
 }
 
-function loadAppointment(appList) {
-  appList.forEach(a => {
-    let app = new Appointment(a.name, a.notes, a.startTime, a.endTime, a.type);
-    appointments.push(app);
-  });
+function editAppointment(id, name, notes, startTime, endTime, type) {
+  let t = appointments.filter(a => a.id === id);
+  t.name = name;
+  t.notes = notes;
+  t.startTime = startTime;
+  t.endTime = endTime;
+  t.type = t.typeConverter(type);
+  log("update completed");
 }
 
 const appAddForm = document.querySelector('#appAddForm');
