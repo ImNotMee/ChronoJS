@@ -24,24 +24,24 @@ function loadAppointments(calendar) {
     {  id: 0,
       name: "Doctor's Appointment",
       notes: "leave 16 mins early",
-      startTime: new Date(2020,6, 16),
-      endTime: new Date(2020,6, 16),
+      startTime: new Date(2020,6, 16,10,20),
+      endTime: new Date(2020,6, 16, 12, 30),
       type: "#ff6c61"
     },
     {
       id: 1,
       name: "Family Dinner",
       notes: "buy gifts",
-      startTime: new Date(2020,6, 11),
-      endTime: new Date(2020, 6,11),
+      startTime: new Date(2020,6, 11, 18,0),
+      endTime: new Date(2020, 6,11, 21, 0),
       type: "#fff175"
     },
     {
       id: 2,
       name: "Meeting with Friends",
       notes: "Playing Pool",
-      startTime: new Date(2020,5, 11),
-      endTime: new Date(2020, 5,11),
+      startTime: new Date(2020,5, 11, 11, 30),
+      endTime: new Date(2020, 5,11, 17, 30),
       type: "#35d45f"
     },
     {
@@ -113,11 +113,19 @@ function dateFormater(date) {
   const year = date.getFullYear();
   const month = MONTHS[date.getMonth()];
   const day = date.getDate();
-  const time = date.getHours() + ":" +date.getMinutes();
+  let hours = String(date.getHours());
+  let mins = String(date.getMinutes());
+  if (hours.length === 1) {
+    hours = "0" + hours;
+  }
+  if (mins.length === 1) {
+    mins = "0" + mins;
+  }
+  const time = hours + ":" + mins;
   if (date.getHours() >= 12) {
-    return(month + " " + day + " " + year +", " + time +"PM");
+    return(month + " " + day + " " + year +", " + time);
   } else {
-    return(month + " " + day + " " + year +", " + time + "AM");
+    return(month + " " + day + " " + year +", " + time);
   }
 }
 

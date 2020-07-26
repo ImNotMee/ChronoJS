@@ -61,11 +61,19 @@ function dateFormater(date) {
   const year = date.getFullYear();
   const month = MONTHS[date.getMonth()];
   const day = date.getDate();
-  const time = date.getHours() + ":" +date.getMinutes();
+  let hours = String(date.getHours());
+  let mins = String(date.getMinutes());
+  if (hours.length === 1) {
+    hours = "0" + hours;
+  }
+  if (mins.length === 1) {
+    mins = "0" + mins;
+  }
+  const time = hours + ":" + mins;
   if (date.getHours() >= 12) {
-    return(month + " " + day + " " + year +", " + time +"PM");
+    return(month + " " + day + " " + year +", " + time);
   } else {
-    return(month + " " + day + " " + year +", " + time + "AM");
+    return(month + " " + day + " " + year +", " + time);
   }
 }
 
