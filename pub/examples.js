@@ -47,7 +47,8 @@ const apps = [
     type: "#ff6c61"
   }
 ];
-
-const cal = new Calendar(2020, 6);
-cal.appointments = apps;
-startCalendar(cal);
+const cMonth = 6;
+const cyear = 2020;
+const calen  = new Calendar(cyear, cMonth);
+loadAppointments(calen, apps);
+startCalendar(calen);

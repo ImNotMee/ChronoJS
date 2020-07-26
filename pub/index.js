@@ -78,7 +78,9 @@ function dateFormater(date) {
 }
 
 const addNewAppointment = (app) => {
-  // clearing old appointments
+  // todo: need to check for if the added appointment is in the same month
+
+  
   const eventBox = document.getElementById("appointments");
   let eachBox = document.createElement("div");
   eachBox.id = "app";

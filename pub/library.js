@@ -14,61 +14,11 @@ const ROMAN = ["I","II","III","IV","V","VI","VII","VIII","XI","X","XI",
   }
 }
 
-function startCalendar() {
-  let calendar = new Calendar(2020, 6);
+function startCalendar(calendar) {
   renderCalendar(calendar);
 }
 
-function loadAppointments(calendar) {
-  let appointments = [
-    {  id: 0,
-      name: "Doctor's Appointment",
-      notes: "leave 16 mins early",
-      startTime: new Date(2020,6, 16,10,20),
-      endTime: new Date(2020,6, 16, 12, 30),
-      type: "#ff6c61"
-    },
-    {
-      id: 1,
-      name: "Family Dinner",
-      notes: "buy gifts",
-      startTime: new Date(2020,6, 11, 18,0),
-      endTime: new Date(2020, 6,11, 21, 0),
-      type: "#fff175"
-    },
-    {
-      id: 2,
-      name: "Meeting with Friends",
-      notes: "Playing Pool",
-      startTime: new Date(2020,5, 11, 11, 30),
-      endTime: new Date(2020, 5,11, 17, 30),
-      type: "#35d45f"
-    },
-    {
-      id: 3,
-      name: "Final Exam",
-      notes: "",
-      startTime: new Date(2020,5, 11, 3, 20, 0),
-      endTime: new Date(2020, 5,11, 7, 30, 0),
-      type: "#fff175"
-    },
-    {
-      id: 4,
-      name: "enjoying the sun",
-      notes: "hiking",
-      startTime: new Date(2020,6, 28, 10, 0),
-      endTime: new Date(2020, 6,28,17,0),
-      type: "#35d45f"
-    },
-    {
-      id: 5,
-      name: "Pick Up Kids from class",
-      notes: "",
-      startTime: new Date(2020,8, 1, 18, 0),
-      endTime: new Date(2020, 8, 1, 18, 0),
-      type: "#ff6c61"
-    }
-  ];
+function loadAppointments(calendar, appointments) {
   calendar.appointments = appointments;
 }
 
@@ -104,7 +54,6 @@ const sortingAppointments = (apps) => {
 }
 
 const getAppointments = (calendar) => {
-  loadAppointments(calendar);
   let t = calendar.appointments.filter(app => app.startTime.getMonth() === calendar.month);
   return t;
 }
@@ -224,6 +173,7 @@ const nextMonth = () => {
     cal.month = 0;
     cal.year = cal.year + 1;
   }
+  loadAppointments(cal, apps);
   updateCalender(cal);
 };
 
@@ -237,6 +187,7 @@ const prevMonth = () => {
     cal.year = cal.year - 1;
     cal.month = 11;
   }
+  loadAppointments(cal, apps);
   updateCalender(cal);
 };
 
