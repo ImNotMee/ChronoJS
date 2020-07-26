@@ -30,6 +30,13 @@ function removeAppointment(id) {
     return newAppointments;
 }
 
+function loadAppointment(appList) {
+  appList.forEach(a => {
+    let app = new Appointment(a.name, a.notes, a.startTime, a.endTime, a.type);
+    appointments.push(app);
+  });
+}
+
 const appAddForm = document.querySelector('#appAddForm');
 appAddForm.addEventListener('submit', addAppointment);
 
@@ -88,59 +95,5 @@ const addNewAppointment = (app) => {
         appBox.style.backgroundColor = app.type;
         elements[n].appendChild(appBox);
     }
-  }
-}
-
-// Settings
-const themeForm = document.querySelector('#themeOptions');
-themeForm.addEventListener('submit', changeTheme);
-
-function changeTheme(e) {
-  e.preventDefault();
-  const selected = document.querySelector('#theme');
-  const theme = selected.options[selected.selectedIndex].value;
-  const calBody = document.querySelector('#calendarBody');
-  if (theme === "light") {
-    calBody.style.backgroundColor = '#ffffff';
-    calBody.style.color = '#000000';
-  }
-  else if (theme === "dark") {
-    calBody.style.backgroundColor = '#2c2c2c';
-    calBody.style.color = '#ffffff';
-  }
-  else if(theme === "gradient") {
-  }
-}
-
-
-const ROMAN = ["I","II","III","IV","V","VI","VII","VIII","XI","X","XI",
-"XII","XIII","XIV","XV","XVI","XVII","XVII","XVIII","XIX","XX","XXI","XXII","XXIII","XXIV",
-"XXV","XXVI","XXVII","XXVII","XXVIII","XXIX","XXX","XXXI"];
-
-const romanForm = document.querySelector('#romanOptions');
-romanForm.addEventListener('submit', changeRomanNumerals);
-
-function changeRomanNumerals(e) {
-  e.preventDefault();
-  const selected = document.querySelector('#roman');
-  const roman = selected.options[selected.selectedIndex].value;
-  const dates = document.querySelectorAll("#dates");
-  let day = 0;
-  if (roman === "on") {
-    dates.forEach(date => {
-      if (date.innerText != "") {
-        date.innerText = ROMAN[day];
-        day ++;
-      }
-    });
-  }
-  else {
-      day = 1;
-      dates.forEach(date => {
-        if (date.innerText != "") {
-          date.innerText = day;
-          day ++;
-        }
-      });
   }
 }

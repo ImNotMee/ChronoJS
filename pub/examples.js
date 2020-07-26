@@ -1,6 +1,8 @@
-const log = console.log
+const log = console.log;
 const MONTHS = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-let today = {year: 2020, month: 6};
+const ROMAN = ["I","II","III","IV","V","VI","VII","VIII","XI","X","XI",
+"XII","XIII","XIV","XV","XVI","XVII","XVII","XVIII","XIX","XX","XXI","XXII","XXIII","XXIV",
+"XXV","XXVI","XXVII","XXVII","XXVIII","XXIX","XXX","XXXI"];
 
  class Calendar {
   constructor(year, month) {
@@ -8,6 +10,7 @@ let today = {year: 2020, month: 6};
     this.year = year;
     this.month = month;
     this.appointments = [];
+    this.romanNumeral = false;
   }
 }
 
@@ -142,7 +145,7 @@ const addThisMonthAppointments = (calendar) => {
   let elements = document.querySelectorAll('#dates');
   for (let n = 0; n < elements.length; n++) {
     for (let i = 0; i < app.length; i++) {
-      if (elements[n].innerText == app[i].startTime.getDate()) {
+      if (elements[n].innerText == app[i].startTime.getDate() || elements[n].innerText === ROMAN[n]) {
         let appBox = document.createElement("div");
         appBox.id = "app";
         appBox.innerHTML = app[i].name.bold() + " " + dateFormater(app[i].startTime) + "-" + dateFormater(app[i].endTime) +
@@ -230,4 +233,54 @@ const prevMonth = () => {
   updateCalender(cal);
 };
 
-startCalendar();
+
+// Calendar settings
+const romanForm = document.querySelector('#romanOptions');
+const themeForm = document.querySelector('#themeOptions');
+themeForm.addEventListener('submit', changeTheme);
+romanForm.addEventListener('submit', changeRomanNumerals);
+
+function changeRomanNumerals(e) {
+  e.preventDefault();
+  const selected = document.querySelector('#roman');
+  const roman = selected.options[selected.selectedIndex].value;
+  const dates = document.querySelectorAll("#dates");
+  let day = 0;
+  if (roman === "on") {
+    dates.forEach(date => {
+      if (date.innerText != "") {
+        date.innerText = ROMAN[day];
+        day ++;
+      }
+    });
+  }
+  else {
+      day = 1;
+      dates.forEach(date => {
+        if (date.innerText != "") {
+          date.innerText = day;
+          day ++;
+        }
+      });
+  }
+}
+
+function changeTheme(e) {
+  e.preventDefault();
+  const selected = document.querySelector('#theme');
+  const theme = selected.options[selected.selectedIndex].value;
+  const calBody = document.querySelector('#calendarBody');
+  if (theme === "light") {
+    calBody.style.backgroundColor = '#ffffff';
+    calBody.style.color = '#000000';
+    // update calendar.theme
+  }
+  else if (theme === "dark") {
+    calBody.style.backgroundColor = '#2c2c2c';
+    calBody.style.color = '#ffffff';
+    // update calendar.theme
+  }
+  else if(theme === "gradient") {
+    // update calendar.theme
+  }
+}
