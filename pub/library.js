@@ -4,9 +4,8 @@ const ROMAN = ["I","II","III","IV","V","VI","VII","VIII","XI","X","XI",
 "XII","XIII","XIV","XV","XVI","XVII","XVII","XVIII","XIX","XX","XXI","XXII","XXIII","XXIV",
 "XXV","XXVI","XXVII","XXVII","XXVIII","XXIX","XXX","XXXI"];
 
- class Calendar {
+class Calendar {
   constructor(year, month) {
-    this.theme = "light";
     this.year = year;
     this.month = month;
     this.appointments = [];
@@ -114,21 +113,33 @@ const addThisMonthAppointments = (calendar) => {
   }
 }
 
-const updateCalender = (calendar) => {
+const updateCalendar = (calendar) => {
   renderMonth(calendar);
   const currMonthData = getMonthData(calendar);
+  let elements = document.querySelectorAll('#dates');
   let date = 1;
   let temp = 0;
-  let elements = document.querySelectorAll('#dates');
-  elements.forEach(ele => {
-    if (temp >= currMonthData[0] && date <= currMonthData[1]) {
-        ele.innerHTML = date;
-       date ++;
-    } else {
-      ele.innerHTML = "";
-    }
-    temp ++;
-  })
+  if (!calendar.romanNumeral) {
+    elements.forEach(ele => {
+      if (temp >= currMonthData[0] && date <= currMonthData[1]) {
+          ele.innerHTML = date;
+         date ++;
+      } else {
+        ele.innerHTML = "";
+      }
+      temp ++;
+    })
+  } else {
+    elements.forEach(ele => {
+      if (temp >= currMonthData[0] && date <= currMonthData[1]) {
+          ele.innerHTML = ROMAN[temp];
+         date ++;
+      } else {
+        ele.innerHTML = "";
+      }
+      temp ++;
+    })
+  }
   addThisMonthAppointments(calendar);
 }
 
@@ -174,7 +185,7 @@ const nextMonth = () => {
     cal.year = cal.year + 1;
   }
   loadAppointments(cal, apps);
-  updateCalender(cal);
+  updateCalendar(cal);
 };
 
 const prevMonth = () => {
@@ -188,23 +199,28 @@ const prevMonth = () => {
     cal.month = 11;
   }
   loadAppointments(cal, apps);
-  updateCalender(cal);
+  updateCalendar(cal);
 };
 
 
 // Calendar settings
-//const romanForm = document.querySelector('#romanOptions');
+const romanForm = document.querySelector('#romanOptions');
 const themeForm = document.querySelector('#themeOptions');
 themeForm.addEventListener('submit', changeTheme);
-//romanForm.addEventListener('submit', changeRomanNumerals);
+romanForm.addEventListener('submit', changeRomanNumerals);
 
 function changeRomanNumerals(e) {
   e.preventDefault();
   const selected = document.querySelector('#roman');
   const roman = selected.options[selected.selectedIndex].value;
   const dates = document.querySelectorAll("#dates");
+
+  const currMonthYear = document.getElementById("month");
+  let temp = currMonthYear.innerText.split(" ");
+  const cal = new Calendar(parseInt(temp[1]), MONTHS.indexOf(temp[0]));
   let day = 0;
   if (roman === "on") {
+    cal.romanNumeral =  true;
     dates.forEach(date => {
       if (date.innerText != "") {
         date.innerText = ROMAN[day];
@@ -214,6 +230,7 @@ function changeRomanNumerals(e) {
   }
   else {
       day = 1;
+      cal.romanNumeral = false;
       dates.forEach(date => {
         if (date.innerText != "") {
           date.innerText = day;
@@ -221,6 +238,7 @@ function changeRomanNumerals(e) {
         }
       });
   }
+  updateCalendar(cal);
 }
 
 function changeTheme(e) {
@@ -229,16 +247,22 @@ function changeTheme(e) {
   const theme = selected.options[selected.selectedIndex].value;
   const calBody = document.querySelector('#calendarBody');
   if (theme === "light") {
+    calBody.style.backgroundImage = "";
     calBody.style.backgroundColor = '#ffffff';
     calBody.style.color = '#000000';
-    // update calendar.theme
   }
   else if (theme === "dark") {
+    calBody.style.backgroundImage = "";
     calBody.style.backgroundColor = '#2c2c2c';
     calBody.style.color = '#ffffff';
-    // update calendar.theme
   }
-  else if(theme === "gradient") {
-    // update calendar.theme
+  else if(theme === "earthly") {
+    calBody.style.backgroundImage = "linear-gradient(180deg, #649173, #DBD5A4)";
+  }
+  else if(theme === "spring") {
+    calBody.style.backgroundImage = "linear-gradient(0deg, #ddd6f3, #faaca8)";
+  }
+  else if(theme === "winter") {
+    calBody.style.backgroundImage = "linear-gradient(to top right, #076585, #ffffff)";
   }
 }
