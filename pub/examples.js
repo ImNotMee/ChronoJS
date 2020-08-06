@@ -49,6 +49,6 @@ const apps = [
 ];
 const cMonth = 6;
 const cyear = 2020;
-const calen  = new Calendar(cyear, cMonth);
-loadAppointments(calen, apps);
-startCalendar(calen);
+const calen = new Calendar(cyear, cMonth);
+calen.loadAppointments(apps);
+calen.startCalendar();
