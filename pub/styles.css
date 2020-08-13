@@ -62,3 +62,8 @@
 
 #options {
 }
+
+#appAddForm {
+  display: flex;
+  flex-direction: column;
+}

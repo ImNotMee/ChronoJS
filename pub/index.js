@@ -46,15 +46,27 @@ appAddForm.addEventListener('submit', addAppointment);
 function addAppointment(e) {
   e.preventDefault();
   const name = document.querySelector('#newAppName').value;
-  const start = document.querySelector('#newAppStartTime').value;
-  const end = document.querySelector('#newAppEndTime').value;
+  const startD = document.querySelector('#newAppStartDate').value;
+  const startT = document.querySelector('#newAppStartTime').value;
+  const endD = document.querySelector('#newAppEndDate').value;
+  const endT = document.querySelector('#newAppEndTime').value;
   const notes = document.querySelector('#newAppNotes').value;
   const selected = document.querySelector('#newAppType');
   const type = selected.options[selected.selectedIndex].value;
 
-  const app = new Appointment(name, notes, start, end, type);
+  const timeSlot = dateEntry(startD,startT,endD,endT);
+
+  const app = new Appointment(name, notes, timeSlot[0], timeSlot[1], type);
   appointments.push(app);
-  addNewAppointment(app);
+  if (calen.month ===new Date(startD).getMonth()) {
+    addNewAppointment(app);
+  }
+}
+
+function dateEntry(startD, startT, endD, endT) {
+  const start = new Date(startD+"T"+startT).toUTCString();
+  const end = new Date(endD+"T"+endT).toUTCString();
+  return [start, end];
 }
 
 function dateFormater(date) {
@@ -78,9 +90,6 @@ function dateFormater(date) {
 }
 
 const addNewAppointment = (app) => {
-  // todo: need to check for if the added appointment is in the same month
-
-  
   const eventBox = document.getElementById("appointments");
   let eachBox = document.createElement("div");
   eachBox.id = "app";

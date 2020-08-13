@@ -175,6 +175,48 @@ class Calendar {
     }
   }
 
+  clearCalendarBox() {
+    // let a = 1;
+    // const dates = document.querySelectorAll('#dates');
+    // dates.forEach(d => {
+    //   if (a < (weekNum -1)*7) {
+    //     console.log(a);
+    //     d.remove();
+    //   }
+    //   else if (a > weekNum*7) {
+    //     console.log(a);
+    //     d.remove();
+    //   }
+    //   a = a + 1;
+    // });
+     while (document.getElementById("dates")) {
+        document.getElementById("dates").remove();
+    }
+  }
+
+  weekView(weekNum) {
+    this.clearCalendarBox();
+    const currMonthData = this.getMonthData();
+    let date = 1;
+    let temp = 0;
+    let calBody = document.getElementById("container");
+    let calBox = document.createElement("div");
+    calBox.id = "calendarRow";
+    for (let i = 0; i < 7; i++) {
+         let eachBox = document.createElement("div");
+         eachBox.id = "dates";
+         let calText = document.createTextNode("");
+         if (temp >= currMonthData[0] && date <= currMonthData[1]) {
+            calText = document.createTextNode(date);
+            date ++;
+         }
+         eachBox.appendChild(calText);
+         calBox.appendChild(eachBox);
+         temp ++;
+    }
+    calBody.appendChild(calBox);
+  }
+
   startCalendar() {
     this.renderCalendar();
   }
@@ -213,8 +255,10 @@ const nextMonth = () => {
 // Calendar settings
 const romanForm = document.querySelector('#romanOptions');
 const themeForm = document.querySelector('#themeOptions');
+const display = document.querySelector('#displayOptions');
 themeForm.addEventListener('submit', changeTheme);
 romanForm.addEventListener('submit', changeRomanNumerals);
+display.addEventListener('submit', weekSelect);
 
 function changeRomanNumerals(e) {
   e.preventDefault();
@@ -264,11 +308,76 @@ function changeTheme(e) {
   }
   else if(theme === "earthly") {
     calBody.style.backgroundImage = "linear-gradient(180deg, #649173, #DBD5A4)";
+    calBody.style.color = '#000000';
   }
   else if(theme === "spring") {
     calBody.style.backgroundImage = "linear-gradient(0deg, #ddd6f3, #faaca8)";
+    calBody.style.color = '#ffffff';
   }
   else if(theme === "winter") {
     calBody.style.backgroundImage = "linear-gradient(to top right, #076585, #ffffff)";
+    calBody.style.color = '#000000';
   }
+}
+
+function weekSelect(e) {
+  e.preventDefault();
+  const selected = document.querySelector('#display');
+  const display = selected.options[selected.selectedIndex].value;
+  if (display === "week") {
+    // check for if already created
+    const checker = document.querySelector('#weekOptions')
+    if(!checker) {
+      const setting = document.querySelector('#setting');
+      const form = document.createElement("form");
+      form.id ="weekOptions"
+      form.innerText = "Weeks ";
+      const selector = document.createElement("select");
+      selector.id = "weekNum";
+      const option1 = document.createElement("option");
+      option1.value = "1";
+      option1.innerText = "1";
+      const option2 = document.createElement("option");
+      option2.value = "2";
+      option2.innerText = "2";
+      const option3 = document.createElement("option");
+      option3.value = "3";
+      option3.innerText = "3";
+      const option4 = document.createElement("option");
+      option4.value = "4";
+      option4.innerText = "4";
+      const option5 = document.createElement("option");
+      option5.value = "5";
+      option5.innerText = "5";
+      selector.appendChild(option1);
+      selector.appendChild(option2);
+      selector.appendChild(option3);
+      selector.appendChild(option4);
+      selector.appendChild(option5);
+      form.appendChild(selector);
+
+      const submit = document.createElement("input");
+      submit.type = "submit";
+      submit.value = "Change";
+      form.appendChild(submit);
+      setting.appendChild(form);
+
+      //call function to update
+      const weekForm = document.querySelector('#weekOptions');
+      weekForm.addEventListener('submit', weekDisplay);
+    }
+  }
+  else if (display === "month") {
+    console.log("month");
+  }
+  else if (display === "day") {
+    console.log("day");
+  }
+}
+
+function weekDisplay(e) {
+  e.preventDefault();
+  const selected = document.querySelector('#weekNum');
+  const weekNum = selected.options[selected.selectedIndex].value;
+  calen.weekView(weekNum);
 }
