@@ -369,9 +369,15 @@ function weekSelect(e) {
   }
   else if (display === "month") {
     console.log("month");
+    // Remmove week options
+    document.querySelector("#weekOptions").remove();
+    calen.renderDates();
+    calen.addThisMonthAppointments();
   }
   else if (display === "day") {
     console.log("day");
+    // Remmove week options
+    document.querySelector("#weekOptions").remove();
   }
 }
 

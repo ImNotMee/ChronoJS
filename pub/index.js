@@ -1,5 +1,6 @@
 let appointmentID = 0;
 let appointments = [];
+let themes = [];
 
 class Appointment {
   constructor(name, notes, start, end, type) {
@@ -118,4 +119,10 @@ const addNewAppointment = (app) => {
         elements[n].appendChild(appBox);
     }
   }
+}
+
+// Developers can do
+
+function addTheme(colourList, name) {
+
 }
