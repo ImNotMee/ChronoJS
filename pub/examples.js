@@ -4,7 +4,7 @@ const apps = [
     notes: "leave 16 mins early",
     startTime: new Date(2020,6, 16),
     endTime: new Date(2020,6, 16),
-    type: "#ff6c61"
+    type: "urgent"
   },
   {
     id: 1,
@@ -12,7 +12,7 @@ const apps = [
     notes: "buy gifts",
     startTime: new Date(2020,6, 11),
     endTime: new Date(2020, 6,11),
-    type: "#fff175"
+    type: "important"
   },
   {
     id: 2,
@@ -20,7 +20,7 @@ const apps = [
     notes: "Playing Pool",
     startTime: new Date(2020,5, 11),
     endTime: new Date(2020, 5,11),
-    type: "#35d45f"
+    type: "important"
   },
   {
     id: 3,
@@ -28,7 +28,7 @@ const apps = [
     notes: "",
     startTime: new Date(2020,5, 11, 3, 20, 0),
     endTime: new Date(2020, 5,11, 7, 30, 0),
-    type: "#fff175"
+    type: "important"
   },
   {
     id: 4,
@@ -36,7 +36,7 @@ const apps = [
     notes: "hiking",
     startTime: new Date(2020,6, 28, 10, 0),
     endTime: new Date(2020, 6,28,17,0),
-    type: "#35d45f"
+    type: "notImportant"
   },
   {
     id: 5,
@@ -44,7 +44,7 @@ const apps = [
     notes: "",
     startTime: new Date(2020,8, 1, 18, 0),
     endTime: new Date(2020, 8, 1, 18, 0),
-    type: "#ff6c61"
+    type: "urgent"
   }
 ];
 const cMonth = 6;
