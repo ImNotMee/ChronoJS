@@ -1,11 +1,6 @@
 const log = console.log;
-const MONTHS = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-const ROMAN = ["I","II","III","IV","V","VI","VII","VIII","IX","X","XI",
-"XII","XIII","XIV","XV","XVI","XVII","XVIII","XIX","XX","XXI","XXII","XXIII","XXIV",
-"XXV","XXVI","XXVII","XXVIII","XXIX","XXX","XXXI"];
 
 class Calendar {
-
   constructor(year, month) {
     this.year = year;
     this.month = month;
@@ -13,7 +8,31 @@ class Calendar {
     this.romanNumeral = false;
     this.dates = {};
   }
+  //Devs can do
+  addAppointment(name, notes, start, end, type) {
+    const app = new Appointment(name, notes, start, end, type);
+    this.appointments.push(app);
+    return app;
+  }
 
+  // Devs can do
+  removeAppointment(id) {
+      let newAppointments = appointments.filter(app => app.id != id);
+      return newAppointments;
+  }
+
+  // Dev can do
+  editAppointment(id, name, notes, startTime, endTime, type) {
+    let t = appointments.filter(a => a.id === id);
+    t.name = name;
+    t.notes = notes;
+    t.startTime = startTime;
+    t.endTime = endTime;
+    t.type = t.typeConverter(type);
+    log("update completed");
+  }
+
+  // Dev can do
   loadAppointments(appointments) {
     appointments.forEach(app => {
         const temp = new Appointment(app.name,app.notes, app.startTime, app.endTime, app.type);
@@ -47,6 +66,7 @@ class Calendar {
     return sorted;
   }
 
+  // Dev can do
    getAppointments() {
     let t = this.appointments.filter(app => app.startTime.getMonth() === this.month);
     return t;
@@ -54,7 +74,7 @@ class Calendar {
 
    dateFormater(date) {
     const year = date.getFullYear();
-    const month = MONTHS[date.getMonth()];
+    const month = Calendar.MONTHS[date.getMonth()];
     const day = date.getDate();
     let hours = String(date.getHours());
     let mins = String(date.getMinutes());
@@ -98,7 +118,7 @@ class Calendar {
     for (let n = 0; n < elements.length; n++) {
       for (let i = 0; i < app.length; i++) {
         if (this.romanNumeral) {
-          let romanToDate = ROMAN.findIndex(roman => roman === elements[n].innerText);
+          let romanToDate = Calendar.ROMAN.findIndex(roman => roman === elements[n].innerText);
           if (romanToDate + 1 == app[i].startTime.getDate()) {
             let appBox = document.createElement("div");
             appBox.id = "app";
@@ -140,7 +160,7 @@ class Calendar {
     } else {
       elements.forEach(ele => {
         if (temp >= currMonthData[0] && date <= currMonthData[1]) {
-            ele.innerHTML = ROMAN[date-1];
+            ele.innerHTML = Calendar.ROMAN[date-1];
            date ++;
         } else {
           ele.innerHTML = "";
@@ -178,7 +198,7 @@ class Calendar {
  renderMonth () {
     const monthDiv = document.getElementById("month");
     if(monthDiv != null) {
-      monthDiv.innerText = MONTHS[this.month] +" " + this.year;
+      monthDiv.innerText = Calendar.MONTHS[this.month] +" " + this.year;
     }
   }
 
@@ -216,7 +236,7 @@ class Calendar {
     calBox.id = "calendarRow";
     for (let i = 0; i < 7; i++) {
       if (this.romanNumeral) {
-        const roman = ROMAN[weekNum*7-i];
+        const roman = Calendar.ROMAN[weekNum*7-i];
         if (roman !== undefined) {
           this.dates[weekNum][i].innerText = roman;
         }
@@ -241,7 +261,24 @@ class Calendar {
       const a = this.saveDates();
       this.dates = a;
   }
+
+  // Devs can do
+  alertAppointments() {
+    const thisMonthApps = this.getAppointments();
+    const d = new Date();
+    thisMonthApps.forEach(app => {
+      if (app.startTime.getDate() === d.getDate() && app.startTime.getHours()+1 === d.getHours()) {
+        alert(app.name + " is in an hour.");
+      }
+    })
+  }
 }
+
+// Constants
+Calendar.MONTHS = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+Calendar.ROMAN = ["I","II","III","IV","V","VI","VII","VIII","IX","X","XI",
+"XII","XIII","XIV","XV","XVI","XVII","XVIII","XIX","XX","XXI","XXII","XXIII","XXIV",
+"XXV","XXVI","XXVII","XXVIII","XXIX","XXX","XXXI"];
 
 
 const nextMonth = () => {
@@ -280,12 +317,13 @@ function changeRomanNumerals(e) {
 
   const currMonthYear = document.getElementById("month");
   let temp = currMonthYear.innerText.split(" ");
+  // Iusse here
   let day = 0;
   if (roman === "on") {
     calen.romanNumeral =  true;
     dates.forEach(date => {
       if (date.innerText != "") {
-        date.innerText = ROMAN[day];
+        date.innerText = Calendar.ROMAN[day];
         day ++;
       }
     });
@@ -386,7 +424,7 @@ function weekSelect(e) {
       document.querySelector("#weekOptions").remove();
     }
     calen.clearCalendarBox();
-    calen.renderCalendar();
+    calen.startCalendar();
   }
 }
 
@@ -399,19 +437,18 @@ function weekDisplay(e) {
 
 // ---------------------------------------------------------------------------
 // Appointment
-let appointmentID = 0;
-let appointments = [];
 
 class Appointment {
   constructor(name, notes, start, end, type) {
-    this.id = appointmentID;
+    this.id = Appointment.appointmentID;
     this.name = name;
     this.notes = notes;
     this.startTime = new Date(start);
     this.endTime = new Date(end);
     this.type = this.typeConverter(type);
-    appointmentID ++;
+    Appointment.appointmentID ++;
   }
+
 
   typeConverter(type) {
     if (type === "urgent") {
@@ -426,26 +463,11 @@ class Appointment {
   }
 }
 
-// Devs can do
-function removeAppointment(id) {
-    let newAppointments = appointments.filter(app => app.id != id);
-    return newAppointments;
-}
-
-function editAppointment(id, name, notes, startTime, endTime, type) {
-  let t = appointments.filter(a => a.id === id);
-  t.name = name;
-  t.notes = notes;
-  t.startTime = startTime;
-  t.endTime = endTime;
-  t.type = t.typeConverter(type);
-  log("update completed");
-}
-
+Appointment.appointmentID = 0;
 const appAddForm = document.querySelector('#appAddForm');
-appAddForm.addEventListener('submit', addAppointment);
+appAddForm.addEventListener('submit', addAppointmentDOM);
 
-function addAppointment(e) {
+function addAppointmentDOM(e) {
   e.preventDefault();
   const name = document.querySelector('#newAppName').value;
   const startD = document.querySelector('#newAppStartDate').value;
@@ -458,10 +480,8 @@ function addAppointment(e) {
 
   const timeSlot = dateEntry(startD,startT,endD,endT);
 
-  const app = new Appointment(name, notes, timeSlot[0], timeSlot[1], type);
-  appointments.push(app);
   if (calen.month ===new Date(startD).getMonth()) {
-    addNewAppointment(app);
+    addNewAppointment(name, notes, timeSlot[0], timeSlot[1], type);
   }
 }
 
@@ -473,7 +493,7 @@ function dateEntry(startD, startT, endD, endT) {
 
 function dateFormater(date) {
   const year = date.getFullYear();
-  const month = MONTHS[date.getMonth()];
+  const month = Calendar.MONTHS[date.getMonth()];
   const day = date.getDate();
   let hours = String(date.getHours());
   let mins = String(date.getMinutes());
@@ -491,7 +511,8 @@ function dateFormater(date) {
   }
 }
 
-const addNewAppointment = (app) => {
+const addNewAppointment = (name, notes, start, end, type) => {
+  const app = calen.addAppointment(name, notes, start, end, type);
   const eventBox = document.getElementById("appointments");
   let eachBox = document.createElement("div");
   eachBox.id = "app";
