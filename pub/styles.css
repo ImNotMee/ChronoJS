@@ -60,9 +60,6 @@
   max-width: 250px;
 }
 
-#options {
-}
-
 #appAddForm {
   display: flex;
   flex-direction: column;

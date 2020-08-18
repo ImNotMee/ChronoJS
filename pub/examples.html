@@ -9,17 +9,17 @@
 <body id="calendarBody">
   <div id="navBar">
     <h2 id="name">ChronoJS</h2>
-    <a href="#doc">Documentation</a>
+    <a href="documentation.html">Documentation</a>
     <a href="examples.html">Example</a>
     <a href="landing.html">Home</a>
   </div>
 
-  <div>
-    <div id="eventBox">
-      <h2>Appointments</h2>
-      <div id="appointments"></div>
+  <div id="eventBox">
+    <h2>Appointments</h2>
+    <div id="appointments"></div>
+    <h2>Settings</h2>
+    <div id="Settings side bar">
       <div id="setting">
-        <h2>Settings</h2>
         <form id='themeOptions'>
           Theme:
           <select id="theme" name="">
@@ -48,33 +48,37 @@
           <input type="submit" value="Display">
         </form>
       </div>
-      <div id="options">
-        <h2>Appointments</h2>
-        <form id='appAddForm'>
-          Name:
-          <input id='newAppName' type="text" placeholder="">
-          Start Date:
-          <input id='newAppStartDate' type="text" placeholder="YYYY-MM-DD">
-          Start Time:
-          <input id='newAppStartTime' type="text" placeholder="HH:MM">
-          End Date:
-          <input id='newAppEndDate' type="text" placeholder="YYYY-MM-DD">
-          End Time:
-          <input id='newAppEndTime' type="text" placeholder="HH:MM">
-          Notes:
-          <input id='newAppNotes' type="text" placeholder="">
-          Type:
-          <select id="newAppType" name="">
-            <option value="important" selected>Important</option>
-            <option value="notImportant">Not Important</option>
-            <option value="urgent">Urgent</option>
-          </select>
-          <input type="submit" value="Add Appointment">
-        </form>
-      </div>
     </div>
-    <script type="text/javascript" src="chrono-js.js"></script>
-    <div id="container">
+
+    <h2>Add Appointment</h2>
+    <div id="addAppointmentForm">
+      <form id='appAddForm'>
+        Name:
+        <input id='newAppName' type="text" maxlength="40" placeholder="">
+        Start Date:
+        <input id='newAppStartDate' type="text" maxlength="10" placeholder="YYYY-MM-DD">
+        Start Time:
+        <input id='newAppStartTime' type="time"  placeholder="">
+        End Time:
+        <input id='newAppEndTime' type="time"  placeholder="">
+        Notes:
+        <input id='newAppNotes' type="text" maxlength="50" placeholder="">
+        Type:
+        <select id="newAppType" name="">
+          <option value="important" selected>Important</option>
+          <option value="notImportant">Not Important</option>
+          <option value="urgent">Urgent</option>
+        </select>
+        <input type="submit" value="Add Appointment">
+      </form>
+    </div>
+
+  </div>
+
+  <script type="text/javascript" src="chrono-js.js"></script>
+  <div id="container">
+    <h2>Calendar</h2>
+    <div id="CalendarModule">
       <div id="calendarRow">
         <button type="button" onclick="prevMonth()">
           <img id="arrows"src="https://image.flaticon.com/icons/svg/892/892512.svg" alt="Prev Month"></img>
@@ -107,7 +111,7 @@
           <p id="weekDates">Saturday</p>
         </div>
       </div>
-      <script type="text/javascript" src="examples.js"></script>
     </div>
-    </div>
+  </div>
+  <script type="text/javascript" src="examples.js"></script>
 <body>

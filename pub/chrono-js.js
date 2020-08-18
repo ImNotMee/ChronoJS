@@ -1,61 +1,29 @@
 const log = console.log;
+"use strict";
 
-class Calendar {
-  constructor(year, month) {
+function Calendar(year, month) {
     this.year = year;
     this.month = month;
     this.appointments = [];
     this.romanNumeral = false;
     this.dates = {};
-  }
-  //Devs can do
-  addAppointment(name, notes, start, end, type) {
-    const app = new Appointment(name, notes, start, end, type);
-    this.appointments.push(app);
-    return app;
-  }
+}
 
-  // Devs can do
-  removeAppointment(id) {
-      let newAppointments = appointments.filter(app => app.id != id);
-      return newAppointments;
-  }
-
-  // Dev can do
-  editAppointment(id, name, notes, startTime, endTime, type) {
-    let t = appointments.filter(a => a.id === id);
-    t.name = name;
-    t.notes = notes;
-    t.startTime = startTime;
-    t.endTime = endTime;
-    t.type = t.typeConverter(type);
-    log("update completed");
-  }
-
-  // Dev can do
-  loadAppointments(appointments) {
-    appointments.forEach(app => {
-        const temp = new Appointment(app.name,app.notes, app.startTime, app.endTime, app.type);
-        if (temp !== undefined || temp !== null) {
-            this.appointments.push(temp);
-        }
-    })
-    log(this.appointments);
-  }
-
-  getMonthData() {
+Calendar.prototype = {
+  // Calendar Render functions
+  getMonthData: function() {
     const firstDay = new Date(this.year, this.month, 1);
     const numOfDays = new Date(this.year, this.month, 0);
     // first element is the month (in a num), second is the number of days in this month
     return [firstDay.getDay(), numOfDays.getDate()];
-  };
+  },
 
-  getMonth() {
+  getMonth: function() {
     let d = new Date();
     return d.getMonth();
-  };
+  },
 
-   sortingAppointments(apps) {
+  sortingAppointments: function(apps) {
     let sorted = apps;
     apps.sort((appA, appB) => {
       const timeA = new Date(appA.startTime);
@@ -64,15 +32,15 @@ class Calendar {
       return (timeA === timeB) ? 0 : (timeA > timeB) ? 1 : -1;
     })
     return sorted;
-  }
+  },
 
   // Dev can do
-   getAppointments() {
-    let t = this.appointments.filter(app => app.startTime.getMonth() === this.month);
+   getAppointments: function() {
+    let t = this.appointments.filter(app => app.startTime.getMonth() === this.month && app.startTime.getFullYear() === this.year);
     return t;
-  }
+  },
 
-   dateFormater(date) {
+   dateFormater: function(date) {
     const year = date.getFullYear();
     const month = Calendar.MONTHS[date.getMonth()];
     const day = date.getDate();
@@ -90,10 +58,9 @@ class Calendar {
     } else {
       return(month + " " + day + " " + year +", " + time);
     }
-  }
+  },
 
-
-   addThisMonthAppointments() {
+   addThisMonthAppointments: function() {
     // clearing old appointments
     const eventBox = document.getElementById("appointments");
     while (eventBox.firstChild) {
@@ -139,9 +106,9 @@ class Calendar {
         }
       }
     }
-  }
+  },
 
- updateCalendar () {
+ updateCalendar: function () {
     this.renderMonth();
     const currMonthData = this.getMonthData();
     let elements = document.querySelectorAll('#dates');
@@ -169,9 +136,9 @@ class Calendar {
       })
     }
     this.addThisMonthAppointments();
-  }
+  },
 
-  renderDates () {
+  renderDates: function () {
     const currMonthData = this.getMonthData();
     let date = 1;
     let temp = 0;
@@ -193,16 +160,16 @@ class Calendar {
       }
       calBody.appendChild(calBox);
     }
-  }
+  },
 
- renderMonth () {
+ renderMonth: function () {
     const monthDiv = document.getElementById("month");
     if(monthDiv != null) {
       monthDiv.innerText = Calendar.MONTHS[this.month] +" " + this.year;
     }
-  }
+  },
 
-  saveDates() {
+  saveDates: function() {
     const dates = document.querySelectorAll('#dates');
     let a = {};
     let weekN = 1;
@@ -221,15 +188,15 @@ class Calendar {
       }
     });
     return a;
-  }
+  },
 
-  clearCalendarBox() {
+  clearCalendarBox: function() {
      while (document.getElementById("dates")) {
         document.getElementById("dates").remove();
     }
-  }
+  },
 
-  weekView(weekNum) {
+  weekView: function(weekNum) {
     this.clearCalendarBox();
     let calBody = document.getElementById("container");
     let calBox = document.createElement("div");
@@ -247,23 +214,66 @@ class Calendar {
       }
     }
     calBody.appendChild(calBox);
-  }
+  },
 
-  startCalendar() {
+  startCalendar: function() {
     this.renderCalendar();
-  }
+  },
 
-  renderCalendar() {
+  renderCalendar: function() {
       // For setting up the grid based on month
       this.renderMonth();
       this.renderDates();
       this.addThisMonthAppointments();
       const a = this.saveDates();
       this.dates = a;
-  }
+  },
+
+  // --------------------- Developer tools ---------------------------------
+  //Devs can do
+  addAppointment: function(name, notes, start, end, type) {
+    const app = new Appointment(name, notes, start, end, type);
+    this.appointments.push(app);
+    return app;
+  },
 
   // Devs can do
-  alertAppointments() {
+  removeAppointment: function(id) {
+    let newAppointments = appointments.filter(app => app.id != id);
+    return newAppointments;
+  },
+
+  // Dev can do
+  editAppointment: function(id, name, notes, startTime, endTime, type) {
+    let t = appointments.filter(a => a.id === id);
+    if (t.length === 1) {
+      t[0].name = name;
+      t[0].notes = notes;
+      t[0].startTime = startTime;
+      t[0].endTime = endTime;
+      t[0].type = t[0].typeConverter(type);
+      log("update to appointment" + a.id +  "completed");
+    }
+    else {
+      log("failed to update appointment");
+    }
+  },
+
+  // Dev can do
+  loadAppointments: function(appointments) {
+    appointments.forEach(app => {
+        const temp = new Appointment(app.name,app.notes, app.startTime, app.endTime, app.type);
+        if (temp !== undefined || temp !== null) {
+            this.appointments.push(temp);
+        }
+    })
+    log(this.appointments);
+  },
+
+
+
+  // Devs can do
+  alertAppointments: function() {
     const thisMonthApps = this.getAppointments();
     const d = new Date();
     thisMonthApps.forEach(app => {
@@ -424,6 +434,9 @@ function weekSelect(e) {
       document.querySelector("#weekOptions").remove();
     }
     calen.clearCalendarBox();
+    if (calen.romanNumeral) {
+      calen.changeRomanNumerals();
+    }
     calen.startCalendar();
   }
 }
@@ -438,19 +451,19 @@ function weekDisplay(e) {
 // ---------------------------------------------------------------------------
 // Appointment
 
-class Appointment {
-  constructor(name, notes, start, end, type) {
-    this.id = Appointment.appointmentID;
-    this.name = name;
-    this.notes = notes;
-    this.startTime = new Date(start);
-    this.endTime = new Date(end);
-    this.type = this.typeConverter(type);
-    Appointment.appointmentID ++;
-  }
+function Appointment(name, notes, start, end, type) {
+  this.id = Appointment.appointmentID;
+  this.name = name;
+  this.notes = notes;
+  this.startTime = new Date(start);
+  this.endTime = new Date(end);
+  this.type = this.typeConverter(type);
+  Appointment.appointmentID ++;
+}
 
 
-  typeConverter(type) {
+Appointment.prototype = {
+  typeConverter: function(type) {
     if (type === "urgent") {
       return "#ff6c61"
     }
@@ -462,8 +475,8 @@ class Appointment {
     }
   }
 }
-
 Appointment.appointmentID = 0;
+
 const appAddForm = document.querySelector('#appAddForm');
 appAddForm.addEventListener('submit', addAppointmentDOM);
 
@@ -472,22 +485,23 @@ function addAppointmentDOM(e) {
   const name = document.querySelector('#newAppName').value;
   const startD = document.querySelector('#newAppStartDate').value;
   const startT = document.querySelector('#newAppStartTime').value;
-  const endD = document.querySelector('#newAppEndDate').value;
   const endT = document.querySelector('#newAppEndTime').value;
   const notes = document.querySelector('#newAppNotes').value;
   const selected = document.querySelector('#newAppType');
   const type = selected.options[selected.selectedIndex].value;
 
-  const timeSlot = dateEntry(startD,startT,endD,endT);
-
-  if (calen.month ===new Date(startD).getMonth()) {
+  const timeSlot = dateEntry(startD,startT,endT);
+  if (timeSlot[0] !== "Invalid Date" && timeSlot[1] !== "Invalid Date") {
     addNewAppointment(name, notes, timeSlot[0], timeSlot[1], type);
+  }
+  else {
+    alert("Invalid Start or End time/date");
   }
 }
 
-function dateEntry(startD, startT, endD, endT) {
+function dateEntry(startD, startT, endT) {
   const start = new Date(startD+"T"+startT).toUTCString();
-  const end = new Date(endD+"T"+endT).toUTCString();
+  const end = new Date(startD+"T"+endT).toUTCString();
   return [start, end];
 }
 
@@ -513,32 +527,32 @@ function dateFormater(date) {
 
 const addNewAppointment = (name, notes, start, end, type) => {
   const app = calen.addAppointment(name, notes, start, end, type);
-  const eventBox = document.getElementById("appointments");
-  let eachBox = document.createElement("div");
-  eachBox.id = "app";
-  eachBox.innerHTML = "Event: " + app.name +
-  "<br /> Start Time: " + dateFormater(app.startTime) +
-  "<br /> End Time: " + dateFormater(app.endTime) + "<br /> Notes: " + app.notes;
-  eachBox.style.backgroundColor = app.type;
-  eventBox.appendChild(eachBox);
+    //if (calen.month === new Date().getMonth()) {}
+    const eventBox = document.getElementById("appointments");
+    let eachBox = document.createElement("div");
+    eachBox.id = "app";
+    eachBox.innerHTML = app.name.bold() + " - " + dateFormater(app.startTime) + "-" + dateFormater(app.endTime) +
+    "<br /> Notes: " + app.notes;
+    eachBox.style.backgroundColor = app.type;
+    eventBox.appendChild(eachBox);
 
-  // adding to calendar
-  let elements = document.querySelectorAll('#dates');
-  for (let n = 0; n < elements.length; n++) {
-    let temp = elements[n].innerText;
-    if (n >= 9) {
-         temp = temp.substring(0,2);
+    // adding to calendar
+    let elements = document.querySelectorAll('#dates');
+    for (let n = 0; n < elements.length; n++) {
+      let temp = elements[n].innerText;
+      if (n >= 9) {
+           temp = temp.substring(0,2);
+      }
+      else {
+         temp = temp.substring(0,1);
+      }
+      if (parseInt(temp) == app.startTime.getDate()) {
+          let appBox = document.createElement("div");
+          appBox.id = "app";
+          appBox.innerHTML = app.name.bold() + " - " + dateFormater(app.startTime) + "-" + dateFormater(app.endTime) +
+          "<br /> Notes: " + app.notes;
+          appBox.style.backgroundColor = app.type;
+          elements[n].appendChild(appBox);
+      }
     }
-    else {
-       temp = temp.substring(0,1);
-    }
-    if (parseInt(temp) == app.startTime.getDate()) {
-        let appBox = document.createElement("div");
-        appBox.id = "app";
-        appBox.innerHTML = app.name.bold() + " - " + dateFormater(app.startTime) + "-" + dateFormater(app.endTime) +
-        "<br /> Notes: " + app.notes;
-        appBox.style.backgroundColor = app.type;
-        elements[n].appendChild(appBox);
-    }
-  }
 }
