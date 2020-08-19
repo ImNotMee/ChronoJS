@@ -11,6 +11,12 @@
   justify-content: center;
 }
 
+#calendarButtons {
+  display: flex;
+  text-align: center;
+  justify-content: center;
+}
+
 #dates {
   width: 200px;
   height: 200px;
@@ -53,6 +59,7 @@
   max-width: 250px;
   text-align: left;
   color: #000000;
+  border: #000 1px solid;
 }
 
 #appointments {
