@@ -20,6 +20,20 @@ const log = console.log;
     Appointment.appointmentID ++;
   }
 
+  Appointment.prototype = {
+    typeConverter: function(type) {
+      if (type === "urgent") {
+        return "#ff6c61"
+      }
+      else if(type === "important") {
+        return "#fff175"
+      }
+      else {
+        return "#35d45f"
+      }
+    }
+  }
+
   Calendar.prototype = {
 
     // Calendar Render functions
@@ -146,9 +160,7 @@ const log = console.log;
       this._addThisMonthAppointments();
     },
 
-    _renderSettings: function() {
-      const box = document.getElementById("setting");
-      //roman
+    _renderRoman: function (box) {
       const romanOptions = document.createElement("form");
       romanOptions.id = "romanOptions";
       const romNum = document.createElement("label");
@@ -176,8 +188,9 @@ const log = console.log;
       }, false);
       romanOptions.appendChild(change);
       box.appendChild(romanOptions);
+    },
 
-      //theme
+    _renderTheme: function(box) {
       const themeOptions = document.createElement("form");
       themeOptions.id = "themeOptions";
 
@@ -199,7 +212,7 @@ const log = console.log;
       const spring = document.createElement("option");
       spring.innerText='Spring';
       spring.setAttribute('value', 'spring');
-      const winter = document.createElement("winter");
+      const winter = document.createElement("option");
       winter.innerText='Winter';
       winter.setAttribute('value', 'winter');
       theme.appendChild(light);
@@ -218,8 +231,9 @@ const log = console.log;
       }, false);
       themeOptions.appendChild(submit);
       box.appendChild(themeOptions);
+    },
 
-      // calendar display
+    _renderCalendarDis: function(box) {
       const displayOptions = document.createElement("form");
       displayOptions.id = "displayOptions";
       const disLabel = document.createElement("label");
@@ -248,6 +262,16 @@ const log = console.log;
       }, false);
       displayOptions.appendChild(submitDis);
       box.appendChild(displayOptions);
+    },
+
+    _renderSettings: function() {
+      const box = document.getElementById("setting");
+      //roman
+      this._renderRoman(box);
+      //theme
+      this._renderTheme(box);
+      // calendar display
+      this._renderCalendarDis(box);
     },
 
     _renderAddApp: function() {
@@ -471,7 +495,7 @@ const log = console.log;
       let c = 0;
       dates.forEach(d => {
         b.push(d);
-        if(c < 7) {
+        if(c < 6) {
           c = c + 1;
         }
         else {
@@ -496,17 +520,7 @@ const log = console.log;
       let calBox = document.createElement("div");
       calBox.id = "calendarRow";
       for (let i = 0; i < 7; i++) {
-        if (this.romanNumeral) {
-          const roman = Calendar.ROMAN[(weekNum-1)*7+i];
-          if (roman !== undefined) {
-            log(this.dates[weekNum][i].innerText);
-            this.dates[weekNum][i].innerText = roman;
-          }
           calBox.appendChild((this.dates[weekNum][i]));
-        }
-        else {
-          calBox.appendChild((this.dates[weekNum][i]));
-        }
       }
       calBody.appendChild(calBox);
     },
@@ -576,10 +590,16 @@ const log = console.log;
         this.dates = a;
     },
 
-    dateEntry: function(startD, startT, endT) {
-          const start = new Date(startD+"T"+startT).toUTCString();
-          const end = new Date(startD+"T"+endT).toUTCString();
-          return [start, end];
+    _dateEntry: function(startD, startT, endT) {
+          const start = new Date(startD+"T"+startT);
+          const formatedS = start.toUTCString();
+          const end = new Date(startD+"T"+endT)
+          const formatedE = end.toUTCString();
+          if (start.getHours() > end.getHours() || start.getMinutes() > end.getMinutes() && start.getHours() === end.getHours()) {
+            alert("Invalid Start or End time/date");
+            return ["Invalid Date","Invalid Date"];
+          }
+          return [formatedS, formatedE];
         },
 
     changeRomanNumerals: function(e) {
@@ -611,6 +631,7 @@ const log = console.log;
             }
           });
       }
+      this.dates = this._saveDates();
       this._updateCalendar();
     },
 
@@ -627,7 +648,7 @@ const log = console.log;
       else if (theme === "dark") {
         calBody.style.backgroundImage = "";
         calBody.style.backgroundColor = '#2c2c2c';
-        calBody.style.color = '#ffffff';
+        calBody.style.color = '#C0C0C0';
       }
       else if(theme === "earthly") {
         calBody.style.backgroundImage = "linear-gradient(180deg, #649173, #DBD5A4)";
@@ -635,11 +656,11 @@ const log = console.log;
       }
       else if(theme === "spring") {
         calBody.style.backgroundImage = "linear-gradient(0deg, #ddd6f3, #faaca8)";
-        calBody.style.color = '#ffffff';
+        calBody.style.color = '#6e6e6e';
       }
       else if(theme === "winter") {
         calBody.style.backgroundImage = "linear-gradient(to top right, #076585, #ffffff)";
-        calBody.style.color = '#000000';
+        calBody.style.color = '#363636';
       }
     },
 
@@ -652,7 +673,8 @@ const log = console.log;
       const notes = document.querySelector('#newAppNotes').value;
       const selected = document.querySelector('#newAppType');
       const type = selected.options[selected.selectedIndex].value;
-      const timeSlot = this.dateEntry(startD,startT,endT);
+      const timeSlot = this._dateEntry(startD,startT,endT);
+
       if (timeSlot[0] !== "Invalid Date" && timeSlot[1] !== "Invalid Date") {
         this._addNewAppointment(name, notes, timeSlot[0], timeSlot[1], type);
       }
@@ -725,9 +747,6 @@ const log = console.log;
           document.querySelector("#weekOptions").remove();
         }
         this._clearCalendarBox();
-        if (this.romanNumeral) {
-          this.changeRomanNumerals();
-        }
         this._reRenderMonth();
       }
     },
@@ -827,33 +846,45 @@ const log = console.log;
       })
     },
 
+    // Devs can do
+    // Toggle the whole add appointment UI
+    toggleAddAppForm: function(toggle) {
+      if(toggle) {
+        this._renderAddApp();
+      }
+      else {
+        const addAppDiv = document.getElementById("addAppointmentForm");
+        while (addAppDiv.firstChild) {
+          addAppDiv.removeChild(addAppDiv.lastChild);
+        }
+      }
+    },
+
+    // Devs can do
+    // Toggle the whole options UI
+    toggleOptions: function(toggle) {
+
+    },
+
+    // Devs can do
+    // Toggle the whole Appointment list UI
+    toggleAppList: function(toggle) {
+
+    },
+
     // Dev can do
     // bgColour can be a list [colour1, colour2] or a colour hex code
     calendarTheme: function(textColour, bgColour, type) {
       const calBody = document.querySelector('#calendarBody');
       if (type === "solid") {
-        calBody.style.backgroundImage = bgColour;;
+        calBody.style.backgroundColor = bgColour;
       }
       else if (type === "gradient") {
-        if (bgColour.length == 2) {
+        if (bgColour.length > 2) {
           calBody.style.backgroundImage = "linear-gradient(180deg," +bgColour[0]+ " ,"+ bgColour[1]+" )";
         }
       }
       calBody.style.color = textColour;
-    }
-  }
-
-  Appointment.prototype = {
-    typeConverter: function(type) {
-      if (type === "urgent") {
-        return "#ff6c61"
-      }
-      else if(type === "important") {
-        return "#fff175"
-      }
-      else {
-        return "#35d45f"
-      }
     }
   }
 

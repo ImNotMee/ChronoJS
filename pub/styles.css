@@ -21,7 +21,7 @@
   width: 200px;
   height: 200px;
   border: #000000 1px solid;
-  overflow: hidden;
+  overflow-y: auto;
 }
 
 #header {
