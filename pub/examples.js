@@ -48,78 +48,8 @@ const apps = [
   }
 ];
 
-// renderAddApp: function() {
-//   const addAppBox = document.getElementById("addAppointmentForm");
-//   const appAddForm = document.createElement("form");
-//   appAddForm.id = "appAddForm"
-//   const newAppName = document.createElement("input");
-//   newAppName.type="text";
-//   newAppName.maxlength = "40";
-//   newAppName.id ="newAppName";
-//   const newAppStartDate = document.createElement("input");
-//   newAppStartDate.type="text";
-//   newAppStartDate.maxlength = "10";
-//   newAppStartDate.id ="newAppStartDate";
-//   newAppStartDate.placeholder ="YYYY-MM-DD"
-//   const newAppStartTime = document.createElement("input");
-//   const newAppEndTime = document.createElement("input");
-//   newAppStartTime.type="time";
-//   newAppEndTime.type="time";
-//   newAppStartTime.id ="newAppStartTime";
-//   newAppEndTime.id ="newAppEndTime";
-//   const newAppNotes = document.createElement("input");
-//   newAppNotes.type="text";
-//   newAppNotes.maxlength = "70";
-//   newAppNotes.id= "newAppNotes";
-//
-//   const label1 = document.createElement("label");
-//   const label2 = document.createElement("label");
-//   const label3 = document.createElement("label");
-//   const label4 = document.createElement("label");
-//   const label5 = document.createElement("label");
-//   label1.innerText = "Name:";
-//   label2.innerText = "Start Date:";
-//   label3.innerText = "Start Time:";
-//   label4.innerText = "End Time:";
-//   label5.innerText = "Notes:";
-//   appAddForm.appendChild(label1);
-//   appAddForm.appendChild(newAppName);
-//   appAddForm.appendChild(label2);
-//   appAddForm.appendChild(newAppStartDate);
-//   appAddForm.appendChild(label3);
-//   appAddForm.appendChild(newAppStartTime);
-//   appAddForm.appendChild(label4);
-//   appAddForm.appendChild(newAppEndTime);
-//   appAddForm.appendChild(label5);
-//   appAddForm.appendChild(newAppNotes);
-//
-//   const label6 = document.createElement("label");
-//   label6.innerText ="Type:";
-//   appAddForm.appendChild(label6);
-//   const newAppType = document.createElement("select");
-//   const option1 = document.createElement("option");
-//   option1.value="important";
-//   option1.innerText = "Important";
-//   option1.selected = true;
-//   const option2 = document.createElement("option");
-//   option2.value="notImportant";
-//   option2.innerText = "Not Important";
-//   const option3 = document.createElement("option");
-//   option3.value="urgent";
-//   option3.innerText = "Urgent";
-//   newAppType.appendChild(option1);
-//   newAppType.appendChild(option2);
-//   newAppType.appendChild(option3);
-//   appAddForm.appendChild(newAppType);
-//
-//   const submit = document.createElement("input");
-//   submit.type ="submit";
-//   submit.value = "Add Appointment";
-//   appAddForm.appendChild(submit);
-//   addAppBox.appendChild(appAddForm);
-
-  const cMonth = 7;
-  const cyear = 2020;
-  const calen = new Calendar(cyear, cMonth);
-  calen.loadAppointments(apps);
-  calen.startCalendar();
+const cMonth = 7;
+const cyear = 2020;
+const calen = new Calendar(cyear, cMonth);
+calen.loadAppointments(apps);
+calen.startCalendar();

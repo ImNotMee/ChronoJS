@@ -1,7 +1,7 @@
 <head>
   <title>ChronoJS Library</title>
   <meta charset="UTF-8">
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="landing.css">
 </head>
 
 <body>
@@ -9,10 +9,104 @@
     <h2 id="name">ChronoJS</h2>
     <a href="documentation.html">Documentation</a>
     <a href="examples.html">Example</a>
-    <a href="landing.html">Home</a>
+    <a href="index.html">Home</a>
   </div>
 
   <div>
+    <h1>Calender</h1>
+    <p>Creates the calendar</p>
+    <code>new Calendar(year, month)<code>
+    <table id="documentation">
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+      <tr>
+        <td>year</td>
+        <td>int</td>
+        <td>the current year</td>
+      </tr>
+      <tr>
+        <td>month</td>
+        <td>int</td>
+        <td>the current month (0 - 11) 0 => Jan</td>
+      </tr>
+    </table>
+
+    <h1>deleteAppointment</h1>
+    <p>removes the appointment from the list of appointments</p>
+    <code>deleteAppointment(appID)<code>
+    <table id="documentation">
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+      <tr>
+        <td>appID</td>
+        <td>int</td>
+        <td>the appointment id</td>
+      </tr>
+    </table>
+
+    <h1>editAppointments</h1>
+    <p>edit an existing appointment</p>
+    <code>editAppointments(id, name, notes, startTime, endTime, type)<code>
+    <table id="documentation">
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+      <tr>
+        <td>id</td>
+        <td>int</td>
+        <td>the appointment id</td>
+      </tr>
+      <tr>
+        <td>name</td>
+        <td>String</td>
+        <td>the new name for the appointment</td>
+      </tr>
+      <tr>
+        <td>notes</td>
+        <td>String</td>
+        <td>Optional: any notes for the appointment</td>
+      </tr>
+      <tr>
+        <td>startTime</td>
+        <td>Date</td>
+        <td>the new start time for the appointment (YYYY-MM-DDTHH:MM)</td>
+      </tr>
+      <tr>
+        <td>endTime</td>
+        <td>Date</td>
+        <td>the new end time for the appointment (YYYY-MM-DDTHH:MM)</td>
+      </tr>
+      <tr>
+        <td>type</td>
+        <td>String</td>
+        <td>Either Important, Not important or Urgent as the type</td>
+      </tr>
+
+    </table>
+
+    <h1>loadAppointments</h1>
+    <p>loads the list of appointments into the calendar</p>
+    <code>loadAppointments(appointments)<code>
+    <table id="documentation">
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+      <tr>
+        <td>appointments</td>
+        <td>Array</td>
+        <td>a list of appointments objects</td>
+      </tr>
+    </table>
   </div>
 
 

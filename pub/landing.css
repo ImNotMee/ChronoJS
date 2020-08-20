@@ -58,3 +58,12 @@
 a {
   text-decoration: none;
 }
+
+#documentation {
+
+}
+
+#documentation td, #documentation th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
