@@ -37,7 +37,7 @@ const log = console.log;
   Calendar.prototype = {
 
     // Calendar Render functions
-    __getMonthData: function() {
+    _getMonthData: function() {
       const firstDay = new Date(this.year, this.month, 1);
       const numOfDays = new Date(this.year, this.month+1, 0);
       // first element is the month (in a num), second is the number of days in this month
@@ -80,16 +80,7 @@ const log = console.log;
       }
     },
 
-     _addThisMonthAppointments: function() {
-      // clearing old appointments
-      const eventBox = document.getElementById("appointments");
-      while (eventBox.firstChild) {
-        eventBox.removeChild(eventBox.lastChild);
-      }
-
-      let app = this.getAppointments();
-      app = this._sortingAppointments(app);
-      // adding to the event list
+    _addToAppList: function(eventBox, app) {
       app.forEach(a => {
           let eachBox = document.createElement("div");
           eachBox.id = "app";
@@ -100,6 +91,19 @@ const log = console.log;
           eachBox.style.backgroundColor = a.type;
           eventBox.appendChild(eachBox);
       });
+    },
+
+     _addThisMonthAppointments: function() {
+      // clearing old appointments
+      const eventBox = document.getElementById("appointments");
+      while (eventBox.firstChild) {
+        eventBox.removeChild(eventBox.lastChild);
+      }
+
+      let app = this.getAppointments();
+      app = this._sortingAppointments(app);
+      // adding to the event list
+      this._addToAppList(eventBox, app);
 
       // adding to celendar
       let elements = document.querySelectorAll('#dates');
@@ -136,7 +140,7 @@ const log = console.log;
 
    _updateCalendar: function () {
       this._renderMonth();
-      const currMonthData = this.__getMonthData();
+      const currMonthData = this._getMonthData();
       let elements = document.querySelectorAll('#dates');
       let date = 1;
       let temp = 0;
@@ -188,7 +192,7 @@ const log = console.log;
       change.setAttribute('value', 'Change');
       change.onsubmit="return false";
       change.addEventListener('click', event => {
-          this.changeRomanNumerals(event);
+          this._changeRomanNumerals(event);
       }, false);
       romanOptions.appendChild(change);
       box.appendChild(romanOptions);
@@ -231,7 +235,7 @@ const log = console.log;
       submit.setAttribute('value', 'Set Theme');
       submit.onsubmit="return false";
       submit.addEventListener('click', event => {
-          this.changeTheme(event);
+          this._changeTheme(event);
       }, false);
       themeOptions.appendChild(submit);
       box.appendChild(themeOptions);
@@ -396,7 +400,7 @@ const log = console.log;
     },
 
     _renderDates: function () {
-      const currMonthData = this.__getMonthData();
+      const currMonthData = this._getMonthData();
       let date = 1;
       let temp = 0;
       let calBody = document.getElementById("container");
@@ -559,6 +563,15 @@ const log = console.log;
       eventBox.appendChild(addAppointmentForm);
       calBody.appendChild(eventBox);
 
+      // Toggle Bar
+      const h2toggleBar = document.createElement("h2");
+      h2toggleBar.innerText = "Toggle Bar";
+      eventBox.appendChild(h2toggleBar);
+      const toggleBar = document.createElement("div");
+      toggleBar.id= "toggleBar";
+      eventBox.appendChild(toggleBar);
+      calBody.appendChild(eventBox)
+
       // calendar
       const calContainer = document.createElement("div");
       calContainer.id= "container";
@@ -588,6 +601,7 @@ const log = console.log;
         this._renderHeader();
         this._renderDates();
         this._renderSettings();
+        this._renderToggleBar();
         this._renderAddApp();
         this._addThisMonthAppointments();
         const a = this._saveDates();
@@ -606,7 +620,7 @@ const log = console.log;
           return [formatedS, formatedE];
         },
 
-    changeRomanNumerals: function(e) {
+    _changeRomanNumerals: function(e) {
       e.preventDefault();
       const selected = document.querySelector('#roman');
       const roman = selected.options[selected.selectedIndex].value;
@@ -639,7 +653,7 @@ const log = console.log;
       this._updateCalendar();
     },
 
-    changeTheme: function(e) {
+    _changeTheme: function(e) {
       e.preventDefault();
       const selected = document.querySelector('#theme');
       const theme = selected.options[selected.selectedIndex].value;
@@ -792,6 +806,55 @@ const log = console.log;
       this._weekView(weekNum);
     },
 
+    _renderToggleBar: function() {
+      const toggleBar = document.getElementById("toggleBar");
+      // Apppointment list
+      const appListDiv = document.getElementById("appointments");
+      const appList = document.createElement("button");
+      appList.id = "toggleButton";
+      appList.innerText ="List";
+      appList.onclick = () => {
+        if (appListDiv.firstChild) {
+          this.toggleAppList(false);
+        }
+        else {
+          this.toggleAppList(true);
+        }
+      };
+      toggleBar.appendChild(appList);
+
+      // Appointment Form
+      const appFormDiv = document.getElementById("addAppointmentForm");
+      const appForm = document.createElement("button");
+      appForm.id = "toggleButton";
+      appForm.innerText ="Form";
+      appForm.onclick = () => {
+        if (appFormDiv.firstChild) {
+          this.toggleAddAppForm(false);
+        }
+        else {
+          this.toggleAddAppForm(true);
+        }
+      };
+      toggleBar.appendChild(appForm);
+
+      // options
+      const settingDiv = document.getElementById("setting");
+      const settings = document.createElement("button");
+      settings.id = "toggleButton";
+      settings.innerText ="Setting"
+      settings.onclick = () => {
+        if (settingDiv.firstChild) {
+          this.toggleOptions(false);
+        }
+        else {
+          this.toggleOptions(true);
+        }
+      };
+      toggleBar.appendChild(settings);
+
+    },
+
     // --------------------- Developer tools ---------------------------------
     //Devs can do
     addAppointment: function(name, notes, start, end, type) {
@@ -867,13 +930,43 @@ const log = console.log;
     // Devs can do
     // Toggle the whole options UI
     toggleOptions: function(toggle) {
+      if(toggle) {
+        this._renderSettings();
+      }
+      else {
+        const addAppDiv = document.getElementById("setting");
+        while (addAppDiv.firstChild) {
+          addAppDiv.removeChild(addAppDiv.lastChild);
+        }
+      }
+    },
 
+    //Devs can do
+    toggleToggleBar: function(toggle) {
+      if(toggle) {
+        this._renderToggleBar();
+      }
+      else {
+        const bar = document.getElementById("toggleBar");
+        while (bar.firstChild) {
+          bar.removeChild(bar.lastChild);
+        }
+      }
     },
 
     // Devs can do
     // Toggle the whole Appointment list UI
     toggleAppList: function(toggle) {
-
+      if(toggle) {
+        const addAppDiv = document.getElementById("appointments");
+        this._addToAppList(addAppDiv, this.getAppointments());
+      }
+      else {
+        const addAppDiv = document.getElementById("appointments");
+        while (addAppDiv.firstChild) {
+          addAppDiv.removeChild(addAppDiv.lastChild);
+        }
+      }
     },
 
     // Dev can do

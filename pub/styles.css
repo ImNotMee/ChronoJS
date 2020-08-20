@@ -98,7 +98,7 @@
 }
 
 #bodyWrapper {
-    text-align: center;
+  text-align: center;
 }
 
 #download {
@@ -129,6 +129,13 @@
   border-radius: 10px;
 }
 
-a {
-  text-decoration: none;
+#toggleBar {
+  display: flex;
+  justify-content: center;
+}
+
+#toggleButton {
+  margin: 4px;
+  padding: 10px 14px;
+  border-radius: 10px;
 }

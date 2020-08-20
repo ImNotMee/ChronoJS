@@ -12,10 +12,46 @@
     <a href="index.html">Home</a>
   </div>
 
-  <div>
+  <div id="doc">
+    <h1>Appointment</h1>
+    <p>Creates an Appointment Object</p>
+    <p>new Appointment(name, notes, startTime, endTime, type)<p>
+    <table id="documentation">
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+        <tr>
+          <td>name</td>
+          <td>String</td>
+          <td>The name of the event/appointment</td>
+        </tr>
+        <tr>
+          <td>notes</td>
+          <td>String</td>
+          <td>Any additional details for this appointment/event</td>
+        </tr>
+        <tr>
+          <td>startTime</td>
+          <td>Date</td>
+          <td>The starting time of the event/appointment</td>
+        </tr>
+        <tr>
+          <td>endTime</td>
+          <td>Date</td>
+          <td>The end time of the event/appointment</td>
+        </tr>
+        <tr>
+          <td>type</td>
+          <td>String</td>
+          <td>type of appointment</td>
+        </tr>
+      </table>
+
     <h1>Calendar</h1>
     <p>Creates the calendar</p>
-    <code>new Calendar(year, month)<code>
+    <p>new Calendar(year, month)<p>
     <table id="documentation">
       <tr>
         <th>Name</th>
@@ -30,13 +66,20 @@
       <tr>
         <td>month</td>
         <td>int</td>
-        <td>the current month (0 - 11) 0 => Jan</td>
+        <td>the current month (0 - 11) 0 => Jan ... 11 => Dec </td>
       </tr>
     </table>
 
+  <div id="funct">
+    <h1>Functions</h1>
+    <h2>startCalendar</h2>
+    <p>Functionality: initializes the calendar and renders it.</p>
+    <p>startCalendar()<p>
+
+
     <h2>deleteAppointment</h2>
-    <p>Removes the appointment from the list of appointments</p>
-    <code>deleteAppointment(appID)<code>
+    <p>Functionality: Removes the appointment from the list of appointments</p>
+    <p>deleteAppointment(appID)<p>
     <table id="documentation">
       <tr>
         <th>Name</th>
@@ -51,8 +94,8 @@
     </table>
 
     <h2>editAppointments</h2>
-    <p>edit an existing appointment</p>
-    <code>editAppointments(id, name, notes, startTime, endTime, type)<code>
+    <p>Functionality: Edit an existing appointment</p>
+    <p>editAppointments(id, name, notes, startTime, endTime, type)<p>
     <table id="documentation">
       <tr>
         <th>Name</th>
@@ -93,8 +136,8 @@
     </table>
 
     <h2>loadAppointments</h2>
-    <p>Loads the list of appointments into the calendar</p>
-    <code>loadAppointments(appointments)<code>
+    <p>Functionality: Loads the list of appointments into the calendar</p>
+    <p>loadAppointments(appointments)<p>
     <table id="documentation">
       <tr>
         <th>Name</th>
@@ -110,12 +153,12 @@
 
 
     <h2>alertAppointments</h2>
-    <p>alerts the user when there are appointments within 1 hour</p>
-    <code>alertAppointments()<code>
+    <p>Functionality: Alerts the user when there are appointments within 1 hour</p>
+    <p>alertAppointments()<p>
 
     <h2>toggleAddAppForm</h2>
-    <p>To toggle the UI for the add appointments Form</p>
-    <code>toggleAddAppForm(toggle)<code>
+    <p>Functionality: To toggle the UI for the add appointments Form</p>
+    <p>toggleAddAppForm(toggle)<p>
     <table id="documentation">
       <tr>
         <th>Name</th>
@@ -130,8 +173,8 @@
     </table>
 
     <h2>toggleOptions</h2>
-    <p>To toggle the UI for the Settings</p>
-    <code>toggleOptions(toggle)<code>
+    <p>Functionality: To toggle the UI for the Settings</p>
+    <p>toggleOptions(toggle)<p>
     <table id="documentation">
       <tr>
         <th>Name</th>
@@ -146,8 +189,24 @@
     </table>
 
     <h2>toggleAppList</h2>
-    <p>To toggle the UI for the Appointment list</p>
-    <code>toggleAppList(toggle)<code>
+    <p>Functionality: To toggle the UI for the Appointment list</p>
+    <p>toggleAppList(toggle)<p>
+    <table id="documentation">
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+      <tr>
+        <td>toggle</td>
+        <td>Boolean</td>
+        <td>A true or false input to indicate on/off</td>
+      </tr>
+    </table>
+
+    <h2>toggleToggleBar</h2>
+    <p>Functionality: To toggle the UI for the toggle bar</p>
+    <p>toggleToggleBar(toggle)<p>
     <table id="documentation">
       <tr>
         <th>Name</th>
@@ -162,8 +221,8 @@
     </table>
 
     <h2>calendarTheme</h2>
-    <p>To set a custom theme for the calendar</p>
-    <code>calendarTheme(textColour, bgColour, type)<code>
+    <p>Functionality: To set a custom theme for the calendar</p>
+    <p>calendarTheme(textColour, bgColour, type)<p>
     <table id="documentation">
       <tr>
         <th>Name</th>
@@ -173,7 +232,7 @@
       <tr>
         <td>textColour</td>
         <td>String</td>
-        <td>A hex colour code in the form of a string for text colour.</td>
+        <td>A hex colour p in the form of a string for text colour.</td>
       </tr>
       <tr>
         <td>bgColour</td>
@@ -187,6 +246,5 @@
       </tr>
     </table>
   </div>
-
-
+  </div>
 </body>

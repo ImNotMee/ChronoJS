@@ -1,3 +1,7 @@
+body {
+  font: 14px Arial, sans-serif;
+}
+
 #navBar {
   overflow: hidden;
   background-color: #333;
@@ -59,8 +63,8 @@ a {
   text-decoration: none;
 }
 
-#documentation {
-
+#doc {
+  margin-left: 10px;
 }
 
 #documentation td, #documentation th {
