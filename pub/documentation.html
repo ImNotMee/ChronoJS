@@ -13,7 +13,7 @@
   </div>
 
   <div>
-    <h1>Calender</h1>
+    <h1>Calendar</h1>
     <p>Creates the calendar</p>
     <code>new Calendar(year, month)<code>
     <table id="documentation">
@@ -34,8 +34,8 @@
       </tr>
     </table>
 
-    <h1>deleteAppointment</h1>
-    <p>removes the appointment from the list of appointments</p>
+    <h2>deleteAppointment</h2>
+    <p>Removes the appointment from the list of appointments</p>
     <code>deleteAppointment(appID)<code>
     <table id="documentation">
       <tr>
@@ -46,11 +46,11 @@
       <tr>
         <td>appID</td>
         <td>int</td>
-        <td>the appointment id</td>
+        <td>The appointment id</td>
       </tr>
     </table>
 
-    <h1>editAppointments</h1>
+    <h2>editAppointments</h2>
     <p>edit an existing appointment</p>
     <code>editAppointments(id, name, notes, startTime, endTime, type)<code>
     <table id="documentation">
@@ -62,12 +62,12 @@
       <tr>
         <td>id</td>
         <td>int</td>
-        <td>the appointment id</td>
+        <td>The appointment id</td>
       </tr>
       <tr>
         <td>name</td>
         <td>String</td>
-        <td>the new name for the appointment</td>
+        <td>The new name for the appointment</td>
       </tr>
       <tr>
         <td>notes</td>
@@ -77,12 +77,12 @@
       <tr>
         <td>startTime</td>
         <td>Date</td>
-        <td>the new start time for the appointment (YYYY-MM-DDTHH:MM)</td>
+        <td>The new start time for the appointment (YYYY-MM-DDTHH:MM)</td>
       </tr>
       <tr>
         <td>endTime</td>
         <td>Date</td>
-        <td>the new end time for the appointment (YYYY-MM-DDTHH:MM)</td>
+        <td>The new end time for the appointment (YYYY-MM-DDTHH:MM)</td>
       </tr>
       <tr>
         <td>type</td>
@@ -92,8 +92,8 @@
 
     </table>
 
-    <h1>loadAppointments</h1>
-    <p>loads the list of appointments into the calendar</p>
+    <h2>loadAppointments</h2>
+    <p>Loads the list of appointments into the calendar</p>
     <code>loadAppointments(appointments)<code>
     <table id="documentation">
       <tr>
@@ -103,16 +103,89 @@
       </tr>
       <tr>
         <td>appointments</td>
-        <td>Array</td>
-        <td>a list of appointments objects</td>
+        <td>List</td>
+        <td>A list of appointments objects</td>
       </tr>
     </table>
 
-    <h1>alertAppointments</h1>
-    <h1>toggleAddAppForm</h1>
-    <h1>toggleOptions</h1>
-    <h1>toggleAppList</h1>
-    <h1>calendarTheme</h1>
+
+    <h2>alertAppointments</h2>
+    <p>alerts the user when there are appointments within 1 hour</p>
+    <code>alertAppointments()<code>
+
+    <h2>toggleAddAppForm</h2>
+    <p>To toggle the UI for the add appointments Form</p>
+    <code>toggleAddAppForm(toggle)<code>
+    <table id="documentation">
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+      <tr>
+        <td>toggle</td>
+        <td>Boolean</td>
+        <td>A true or false input to indicate on/off</td>
+      </tr>
+    </table>
+
+    <h2>toggleOptions</h2>
+    <p>To toggle the UI for the Settings</p>
+    <code>toggleOptions(toggle)<code>
+    <table id="documentation">
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+      <tr>
+        <td>toggle</td>
+        <td>Boolean</td>
+        <td>A true or false input to indicate on/off</td>
+      </tr>
+    </table>
+
+    <h2>toggleAppList</h2>
+    <p>To toggle the UI for the Appointment list</p>
+    <code>toggleAppList(toggle)<code>
+    <table id="documentation">
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+      <tr>
+        <td>toggle</td>
+        <td>Boolean</td>
+        <td>A true or false input to indicate on/off</td>
+      </tr>
+    </table>
+
+    <h2>calendarTheme</h2>
+    <p>To set a custom theme for the calendar</p>
+    <code>calendarTheme(textColour, bgColour, type)<code>
+    <table id="documentation">
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+      <tr>
+        <td>textColour</td>
+        <td>String</td>
+        <td>A hex colour code in the form of a string for text colour.</td>
+      </tr>
+      <tr>
+        <td>bgColour</td>
+        <td>String/List of Strings</td>
+        <td>A single hex colour for a solid colour effect and a two hex colours in a list for a gradient effect</td>
+      </tr>
+      <tr>
+        <td>type</td>
+        <td>String</td>
+        <td>To indicate whether it is a solid or a gradient effect</td>
+      </tr>
+    </table>
   </div>
 
 
