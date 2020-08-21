@@ -139,7 +139,7 @@ const log = console.log;
             }
         }
       }
-      this.dates = this._saveDates();
+      //this.dates = this._saveDates();
     },
 
     _test: function() {
@@ -716,7 +716,14 @@ const log = console.log;
         this.romanNumeral = true;
         dates.forEach(date => {
           if (date.innerText != "") {
-            date.innerText = Calendar.ROMAN[day];
+            if (day >= 9) {
+              date.innerHTML = date.innerHTML.replace(date.innerHTML.substring(0,2), Calendar.ROMAN[day]);
+              log(date.innerHTML);
+            }
+            else {
+              date.innerHTML = date.innerHTML.replace(date.innerHTML.substring(0,1), Calendar.ROMAN[day]);
+              log(date.innerHTML);
+            }
             day ++;
           }
         });
