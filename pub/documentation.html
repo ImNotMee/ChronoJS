@@ -14,7 +14,7 @@
 
   <div id="getStarted">
     <h1>Getting Started</h1>
-    <p>To initalize the calendar module</p>
+    <p>To initialize the calendar module</p>
     <pre id="code">
 
       const cMonth = 7; // 7 = August
@@ -70,7 +70,7 @@
         type: "urgent"
       }
     </pre>
-    <p>When first initalize the calendar all the UI elements will display.</p>
+    <p>When first initialize the calendar all the UI elements will display.</p>
       <p>To remove any of the UI elements from displaying, refer to the toggle functions.</p>
     <pre id="code">
 
@@ -148,6 +148,7 @@
     </table>
     <br>
     <br>
+
     <h1>Calendar API</h1>
     <div id="funct">
       <h2>startCalendar</h2>
@@ -195,12 +196,13 @@
           <td>Either Important, Not important or Urgent as the type</td>
         </tr>
       </table>
+      <p>Returns the appointment object</p>
 
-      <h2>deleteAppointment</h2>
+      <h2>removeAppointment</h2>
       <p>Functionality: Removes the appointment from the list of appointments</p>
       <pre id="code">
 
-        deleteAppointment(appID);
+        removeAppointment(appID);
       </pre>
       <table id="documentation">
         <tr>
@@ -214,7 +216,7 @@
           <td>The appointment id</td>
         </tr>
       </table>
-
+      <p>Returns true if the appointment exists and removed, else returns false</p>
 
       <h2>getAppointments</h2>
       <p>Functionality: gets a list of appointments for current calendar month</p>
@@ -222,6 +224,8 @@
 
         getAppointments();
       </pre>
+      <p>Returns the list of appointment objects in the calendar</p>
+
 
       <h2>editAppointments</h2>
       <p>Functionality: Edit an existing appointment</p>

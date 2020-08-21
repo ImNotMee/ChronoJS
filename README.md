@@ -6,7 +6,7 @@ Documentation Link: https://chronojs.herokuapp.com/documentation.html
 
 # Getting started:
 
-To initalize the calendar module:
+To initialize the calendar module:
 
 ```
     const cMonth = 7; // 7 = August
@@ -59,7 +59,7 @@ Note: if the Start time and end time is the exact same, it will render "All day"
   }
 ```
 
-When first initalize the calendar all the UI elements will display.
+When first initialize the calendar all the UI elements will display.
 To remove any of the UI elements from displaying, refer to the toggle functions.
 
 ```
@@ -112,21 +112,26 @@ addAppointment(name, notes, start, end, type);
 | endTime   | Date   | The new end time for the appointment (YYYY-MM-DDTHH:MM)             |
 | type      | String | Type of appointment (important, notImportant, urgent) |
 
-### deleteAppointment
-Functionality: Removes the appointment from the list of appointments
+Returns the appointment object.
+
+### removeAppointment
+Functionality: Removes an appointment from the list of appointments
 
 ```
-deleteAppointment(appID);
+removeAppointment(appID);
 ```
 | variable  | Type   | Description                          |
 |-----------|--------|--------------------------------------|
 | appID     | int    | the Appointment ID                   |
+
+Returns true if the appointment exists and removed, else returns false.
 
 ### getAppointments
 Functionality: gets a list of appointments for current calendar month.
 ```
 getAppointments();
 ```
+Returns the list of appointment objects in the calendar.
 
 ### editAppointments
 Functionality: Edit an existing appointment.

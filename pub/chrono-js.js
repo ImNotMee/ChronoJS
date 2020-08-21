@@ -1011,7 +1011,11 @@ const log = console.log;
     // Devs can do
     removeAppointment: function(id) {
       let newAppointments = appointments.filter(app => app.id != id);
-      return newAppointments;
+      this.appointments = newAppointments;
+      if (newAppointments.length === 0) {
+        return false;
+      }
+      return true;
     },
 
     // Dev can do
