@@ -2,44 +2,44 @@ const apps = [
   {
     name: "Doctor's Appointment",
     notes: "Leave 16 mins early",
-    startTime: new Date(2020,7, 16, 11,0),
-    endTime: new Date(2020,7, 16, 12, 30),
+    startTime: new Date(2020, 7, 16, 11, 0),
+    endTime: new Date(2020, 7, 16, 12, 30),
     type: "urgent"
   },
   {
     name: "Family Dinner",
     notes: "Buy gifts",
-    startTime: new Date(2020,7, 11,18,0),
-    endTime: new Date(2020, 7,11,21, 30),
+    startTime: new Date(2020, 7, 11, 18, 0),
+    endTime: new Date(2020, 7, 11, 21, 30),
     type: "important"
   },
   {
     name: "Meeting with Friends",
     notes: "",
     startTime: new Date(2020,5, 1),
-    endTime: new Date(2020, 5,1),
+    endTime: new Date(2020, 5, 1),
     type: "important"
   },
   {
     name: "Final Exam",
     notes: "CSC108",
     startTime: new Date(2020,6, 11, 3, 20, 0),
-    endTime: new Date(2020, 6,11, 7, 30, 0),
+    endTime: new Date(2020, 6, 11, 7, 30, 0),
     type: "important"
   },
   {
     name: "Enjoying the sun",
     notes: "",
-    startTime: new Date(2020,7, 28, 10, 0),
-    endTime: new Date(2020, 7,28,17,0),
+    startTime: new Date(2020, 7, 28, 10, 0),
+    endTime: new Date(2020, 7, 28, 17, 0),
     type: "notImportant"
   },
   {
     name: "Pick Up Kids from class",
     notes: "ASAP",
     startTime: new Date(2020,8, 1, 18, 0),
-    endTime: new Date(2020, 8, 1, 18, 0),
-    type: "important"
+    endTime: new Date(2020, 8, 1, 18, 30),
+    type: "urgent"
   },
   {
     name: "Buying a lamp at Ikea",
@@ -59,7 +59,14 @@ const apps = [
     name: "Sign up for courses",
     notes: "On Acorn",
     startTime: new Date(2020,7, 11, 8, 10),
-    endTime: new Date(2020, 7, 11, 8, 30),
+    endTime: new Date(2020, 7, 11, 8, 40),
+    type: "urgent"
+  },
+  {
+    name: "Sleep",
+    notes: "AT HOME",
+    startTime: new Date(2020,7, 1, 1, 10),
+    endTime: new Date(2020, 7, 1, 1, 10),
     type: "urgent"
   },
 ];

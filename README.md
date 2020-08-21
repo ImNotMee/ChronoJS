@@ -45,6 +45,19 @@ Or by using the `addAppointment` function
   const endTime = new Date(2020,7, 21, 23,0);
   calen.addAppointment("Example 3", "no notes", startTime, endTime, "important");
 ```
+
+Note: if the Start time and end time is the exact same, it will render "All day" as the time.
+```
+  // example appointment object that will show All Day
+  {
+    name: "Sleep",
+    notes: "AT HOME",
+    startTime: new Date(2020,7, 1, 1, 10),
+    endTime: new Date(2020, 7, 1, 1, 10),
+    type: "urgent"
+  }
+```
+
 When first initalize the calendar all the UI elements will display.
 To remove any of the UI elements from displaying, refer to the toggle functions.
 

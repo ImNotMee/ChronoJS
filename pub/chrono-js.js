@@ -63,7 +63,7 @@ const log = console.log;
     },
 
      // formating the time to display on calendar and app list
-     _dateFormater: function(date) {
+     _dateFormater: function(date, type) {
       const year = date.getFullYear();
       const month = Calendar.MONTHS[date.getMonth()];
       const day = date.getDate();
@@ -77,9 +77,19 @@ const log = console.log;
       }
       const time = hours + ":" + mins;
       if (date.getHours() >= 12) {
-        return(month + " " + day + " " + year +", " + time);
+        if (type === "s") {
+          return(month + " " + day + " " + year +", " + time);
+        }
+        else {
+          return(time);
+        }
       } else {
-        return(month + " " + day + " " + year +", " + time);
+        if (type === "s") {
+          return(month + " " + day + " " + year +", " + time);
+        }
+        else {
+          return(time);
+        }
       }
     },
 
@@ -98,7 +108,12 @@ const log = console.log;
       app.forEach(a => {
           let eachBox = document.createElement("div");
           eachBox.id = "app";
-          eachBox.innerHTML = a.name.bold() + " - " + this._dateFormater(a.startTime) + " - " + this._dateFormater(a.endTime);
+          if (a.startTime.getTime() === a.endTime.getTime()) {
+            eachBox.innerHTML = a.name.bold() + " - All Day";
+          }
+          else {
+            eachBox.innerHTML = a.name.bold() + " - " + this._dateFormater(a.startTime, "s") + " - " + this._dateFormater(a.endTime,"e");
+          }
           if (a.notes !== "") {
             eachBox.innerHTML = eachBox.innerHTML + "<br /> <strong>Notes:</strong> " + a.notes;
           }
@@ -130,7 +145,13 @@ const log = console.log;
           if (romanToDate + 1 === app[i].startTime.getDate() || parseInt(elements[n].innerText) === app[i].startTime.getDate()) {
               let appBox = document.createElement("div");
               appBox.id = "app";
-              appBox.innerHTML = app[i].name.bold() + " - " + this._dateFormater(app[i].startTime) + " - " + this._dateFormater(app[i].endTime);
+              if (app[i].startTime.getTime() === app[i].endTime.getTime()) {
+                appBox.innerHTML = app[i].name.bold() + " - All Day";
+              }
+              else {
+                appBox.innerHTML = app[i].name.bold() + " - " + this._dateFormater(app[i].startTime,"s") + " - " + this._dateFormater(app[i].endTime,"e");
+              }
+
               if (app[i].notes !== "") {
                 appBox.innerHTML = appBox.innerHTML + "<br /> <strong>Notes:</strong> " + app[i].notes;
               }
@@ -862,7 +883,12 @@ const log = console.log;
       const eventBox = document.getElementById("appointments");
         let eachBox = document.createElement("div");
         eachBox.id = "app";
-        eachBox.innerHTML = app.name.bold() + " - " + this._dateFormater(app.startTime) + " - " + this._dateFormater(app.endTime);
+        if (app.startTime.getTime() === app.endTime.getTime()) {
+          eachBox.innerHTML = app.name.bold() + " - All Day";
+        }
+        else {
+          eachBox.innerHTML = app.name.bold() + " - " + this._dateFormater(app.startTime,"s") + " - " + this._dateFormater(app.endTime,"e");
+        }
         if (app.notes !== "") {
           eachBox.innerHTML = eachBox.innerHTML + "<br /> <strong>Notes:</strong> " + app.notes;
         }
@@ -889,7 +915,12 @@ const log = console.log;
           if (parseInt(temp) == app.startTime.getDate() || romanToDate + 1 === app[i].startTime.getDate()) {
             let appBox = document.createElement("div");
             appBox.id = "app";
-            appBox.innerHTML = app.name.bold() + " - " + this._dateFormater(app.startTime) + " - " + this._dateFormater(app.endTime);
+            if (app.startTime.getTime() === app.endTime.getTime()) {
+              appBox.innerHTML = app.name.bold() + " - All Day";
+            }
+            else {
+              appBox.innerHTML = app.name.bold() + " - " + this._dateFormater(app.startTime,"s") + " - " + this._dateFormater(app.endTime,"e");
+            }
             if (app.notes !== "") {
               appBox.innerHTML = appBox.innerHTML + "<br /> <strong>Notes:</strong> " + app.notes;
             }
