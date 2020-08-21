@@ -285,7 +285,6 @@ const log = console.log;
     },
 
     _renderJumpDate: function() {
-      log("a");
       const box = document.getElementById("jumpF");
       const jump = document.createElement("form");
       jump.id = "jumpS";
@@ -718,11 +717,9 @@ const log = console.log;
           if (date.innerText != "") {
             if (day >= 9) {
               date.innerHTML = date.innerHTML.replace(date.innerHTML.substring(0,2), Calendar.ROMAN[day]);
-              log(date.innerHTML);
             }
             else {
               date.innerHTML = date.innerHTML.replace(date.innerHTML.substring(0,1), Calendar.ROMAN[day]);
-              log(date.innerHTML);
             }
             day ++;
           }
