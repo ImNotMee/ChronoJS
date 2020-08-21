@@ -169,6 +169,15 @@ toggleAppList(toggle);
 |-----------|----------|-------------------------------------------------------|
 | toggle    | boolean  | A true or false input to indicate on/off              |
 
+### toggleJumpDate
+Functionality: To toggle the UI for custom month jumps in calendar.
+```
+toggleJumpDate(toggle);
+```
+| variable  | Type     | Description                                           |
+|-----------|----------|-------------------------------------------------------|
+| toggle    | boolean  | A true or false input to indicate on/off              |
+
 ### toggleToggleBar
 Functionality: To toggle the UI for the toggle bar.
 ```
