@@ -53,6 +53,7 @@
   display: flex;
   flex-direction: column;
   margin-left: 3%;
+  max-width: 20%;
 }
 
 #app {
@@ -67,9 +68,10 @@
   max-width: 250px;
 }
 
-#appAddForm {
+#appAddForm, #jumpS {
   display: flex;
   flex-direction: column;
+  max-width: 60%;
 }
 
 #navBar {
@@ -95,38 +97,6 @@
 #navBar a:hover {
   background-color: #ddd;
   color: black;
-}
-
-#bodyWrapper {
-  text-align: center;
-}
-
-#download {
-  margin-left: auto;
-  margin-right: auto;
-  width: 40%;
-  float: left;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-#content {
-  font-size: 36px;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-#downloadButton {
-  background-color: #333;
-  border: none;
-  color: white;
-  padding: 16px 34px;
-  font-size: 22px;
-  border-radius: 10px;
 }
 
 #toggleBar {

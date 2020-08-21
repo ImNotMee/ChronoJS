@@ -139,7 +139,11 @@ const log = console.log;
             }
         }
       }
-      this.dates
+      this.dates = this._saveDates();
+    },
+
+    _test: function() {
+      let elements = document.querySelectorAll('#dates');
     },
 
    _updateCalendar: function () {
@@ -278,6 +282,54 @@ const log = console.log;
       }, false);
       displayOptions.appendChild(submitDis);
       box.appendChild(displayOptions);
+    },
+
+    _renderJumpDate: function() {
+      log("a");
+      const box = document.getElementById("jumpF");
+      const jump = document.createElement("form");
+      jump.id = "jumpS";
+
+      const label1 = document.createElement("label");
+      label1.innerText ="Month:";
+      jump.appendChild(label1);
+      const month = document.createElement("input");
+      month.id ="jumpM";
+      month.setAttribute("maxlength", 2);
+      jump.appendChild(month);
+      const label2 = document.createElement("label");
+      label2.innerText ="Year:";
+      jump.appendChild(label2);
+      const year = document.createElement("input");
+      year.id = "jumpY"
+      year.setAttribute("maxlength", 4);
+      jump.appendChild(year);
+      box.appendChild(jump);
+
+      const submit = document.createElement("input");
+      submit.setAttribute('type', 'submit');
+      submit.setAttribute('value', 'Change');
+      submit.onsubmit="return false";
+      submit.addEventListener('click', event => {
+          this._jumpTo(event);
+      }, false);
+      jump.appendChild(submit);
+      box.appendChild(jump);
+    },
+
+    _jumpTo: function(e) {
+      e.preventDefault();
+      const jumpM = document.querySelector('#jumpM').value;
+      const jumpY = document.querySelector('#jumpY').value;;
+
+      if (jumpM >= 1 && jumpM <= 12 && jumpY > 0 && jumpY < 9999) {
+        this.month = jumpM - 1;
+        this.year = jumpY;
+        this._updateCalendar();
+      }
+      else {
+        alert("Invalid month and year entry");
+      }
     },
 
     _renderSettings: function() {
@@ -585,6 +637,13 @@ const log = console.log;
       eventBox.appendChild(toggleBar);
       calBody.appendChild(eventBox);
 
+      const h2JumpCal = document.createElement("h2");
+      h2JumpCal.innerText = "Switch Month To";
+      eventBox.appendChild(h2JumpCal);
+      const jumpF = document.createElement("div");
+      jumpF.id= "jumpF";
+      eventBox.appendChild(jumpF);
+      calBody.appendChild(eventBox);
 
       // calendar
       const calContainer = document.createElement("div");
@@ -621,6 +680,7 @@ const log = console.log;
         this._renderDates();
         this._renderSettings();
         this._renderToggleBar();
+        this._renderJumpDate();
         this._renderAddApp();
         this._addThisMonthAppointments();
         this._renderCustomTheme();
@@ -671,9 +731,8 @@ const log = console.log;
             }
           });
       }
-      this.dates = this._saveDates();
-      log(this.dates);
-      this._updateCalendar();
+      //this.dates = this._saveDates();
+      this._addThisMonthAppointments();
     },
 
     // calendar theme DOM manipulation
@@ -890,6 +949,20 @@ const log = console.log;
       };
       toggleBar.appendChild(settings);
 
+      // jump calendar
+      const jumpF = document.getElementById("jumpF");
+      const jumpForm = document.createElement("button");
+      jumpForm.id = "toggleButton";
+      jumpForm.innerText ="Jump";
+      jumpForm.onclick = () => {
+        if (jumpF.firstChild) {
+          this.toggleJumpDate(false);
+        }
+        else {
+          this.toggleJumpDate(true);
+        }
+      };
+      toggleBar.appendChild(jumpForm);
     },
 
     // --------------------- Developer tools ---------------------------------
@@ -973,6 +1046,19 @@ const log = console.log;
         const addAppDiv = document.getElementById("setting");
         while (addAppDiv.firstChild) {
           addAppDiv.removeChild(addAppDiv.lastChild);
+        }
+      }
+    },
+    // Devs can do
+    // Toggle the whole jump calendar UI
+    toggleJumpDate: function(toggle) {
+      if(toggle) {
+        this._renderJumpDate();
+      }
+      else {
+        const jumpDiv = document.getElementById("jumpF");
+        while (jumpDiv.firstChild) {
+          jumpDiv.removeChild(jumpDiv.lastChild);
         }
       }
     },
