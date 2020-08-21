@@ -126,7 +126,7 @@ const log = console.log;
         for (let i = 0; i < app.length; i++) {
           if (this.romanNumeral) {
             let romanToDate = Calendar.ROMAN.findIndex(roman => roman === elements[n].innerText);
-            if (romanToDate + 1 == app[i].startTime.getDate()) {
+            if (romanToDate + 1 === app[i].startTime.getDate()) {
               let appBox = document.createElement("div");
               appBox.id = "app";
               appBox.innerHTML = app[i].name.bold() + " - " + this._dateFormater(app[i].startTime) + " - " + this._dateFormater(app[i].endTime);
@@ -137,7 +137,7 @@ const log = console.log;
               elements[n].appendChild(appBox);
             }
           } else {
-            if (parseInt(elements[n].innerText) == app[i].startTime.getDate()) {
+            if (parseInt(elements[n].innerText) === app[i].startTime.getDate()) {
               let appBox = document.createElement("div");
               appBox.id = "app";
               appBox.innerHTML = app[i].name.bold() + " - " + this._dateFormater(app[i].startTime) + " - " + this._dateFormater(app[i].endTime);
@@ -738,7 +738,6 @@ const log = console.log;
     // rerender month
     _reRenderMonth: function() {
       const calBody = document.getElementById("CalendarModule");
-      log(this.dates);
       for (let i = 1; i < 6; i ++) {
         let calBox = document.createElement("div");
         calBox.id ="calendarRow";
@@ -795,7 +794,6 @@ const log = console.log;
         }
       }
       else if (display === "month") {
-        console.log("month");
         // Remmove week options
         if (document.querySelector("#weekOptions")) {
           document.querySelector("#weekOptions").remove();
@@ -940,7 +938,6 @@ const log = console.log;
           this.appointments.push(temp);
         }
       })
-      log(this.appointments);
     },
 
     // Devs can do
