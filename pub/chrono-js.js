@@ -82,7 +82,7 @@ const log = console.log;
         return(month + " " + day + " " + year +", " + time);
       }
     },
-    
+
     _renderCustomTheme: function() {
       if(this.theme.length === 2) {
         const calBody = document.querySelector('#calendarBody');
@@ -98,7 +98,7 @@ const log = console.log;
       app.forEach(a => {
           let eachBox = document.createElement("div");
           eachBox.id = "app";
-          eachBox.innerHTML = a.name.bold() + " " + this._dateFormater(a.startTime) + "-" + this._dateFormater(a.endTime);
+          eachBox.innerHTML = a.name.bold() + " - " + this._dateFormater(a.startTime) + " - " + this._dateFormater(a.endTime);
           if (a.notes !== "") {
             eachBox.innerHTML = eachBox.innerHTML + "<br /> <strong>Notes:</strong> " + a.notes;
           }
@@ -129,7 +129,7 @@ const log = console.log;
             if (romanToDate + 1 == app[i].startTime.getDate()) {
               let appBox = document.createElement("div");
               appBox.id = "app";
-              appBox.innerHTML = app[i].name.bold() + " " + this._dateFormater(app[i].startTime) + "-" + this._dateFormater(app[i].endTime);
+              appBox.innerHTML = app[i].name.bold() + " - " + this._dateFormater(app[i].startTime) + " - " + this._dateFormater(app[i].endTime);
               if (app[i].notes !== "") {
                 appBox.innerHTML = appBox.innerHTML + "<br /> <strong>Notes:</strong> " + app[i].notes;
               }
@@ -137,10 +137,10 @@ const log = console.log;
               elements[n].appendChild(appBox);
             }
           } else {
-            if (elements[n].innerText == app[i].startTime.getDate()) {
+            if (parseInt(elements[n].innerText) == app[i].startTime.getDate()) {
               let appBox = document.createElement("div");
               appBox.id = "app";
-              appBox.innerHTML = app[i].name.bold() + " " + this._dateFormater(app[i].startTime) + "-" + this._dateFormater(app[i].endTime);
+              appBox.innerHTML = app[i].name.bold() + " - " + this._dateFormater(app[i].startTime) + " - " + this._dateFormater(app[i].endTime);
               if (app[i].notes !== "") {
                 appBox.innerHTML = appBox.innerHTML + "<br /> <strong>Notes:</strong> " + app[i].notes;
               }
@@ -810,8 +810,10 @@ const log = console.log;
       const eventBox = document.getElementById("appointments");
         let eachBox = document.createElement("div");
         eachBox.id = "app";
-        eachBox.innerHTML = app.name.bold() + " - " + this._dateFormater(app.startTime) + "-" + this._dateFormater(app.endTime) +
-        "<br /> Notes: " + app.notes;
+        eachBox.innerHTML = app.name.bold() + " - " + this._dateFormater(app.startTime) + " - " + this._dateFormater(app.endTime);
+        if (app.notes !== "") {
+          eachBox.innerHTML = eachBox.innerHTML + "<br /> <strong>Notes:</strong> " + app.notes;
+        }
         eachBox.style.backgroundColor = app.type;
         eventBox.appendChild(eachBox);
 
@@ -828,8 +830,10 @@ const log = console.log;
           if (parseInt(temp) == app.startTime.getDate()) {
             let appBox = document.createElement("div");
             appBox.id = "app";
-            appBox.innerHTML = app.name.bold() + " - " + this._dateFormater(app.startTime) + "-" + this._dateFormater(app.endTime) +
-            "<br /> Notes: " + app.notes;
+            appBox.innerHTML = app.name.bold() + " - " + this._dateFormater(app.startTime) + " - " + this._dateFormater(app.endTime);
+            if (app.notes !== "") {
+              appBox.innerHTML = appBox.innerHTML + "<br /> <strong>Notes:</strong> " + app.notes;
+            }
             appBox.style.backgroundColor = app.type;
             elements[n].appendChild(appBox);
           }
