@@ -9,6 +9,7 @@ const log = console.log;
       this.romanNumeral = false;
       this.dates = {};
       this.started = false;
+      this.theme = [];
   }
 
   function Appointment(name, notes, start, end, type) {
@@ -78,6 +79,16 @@ const log = console.log;
         return(month + " " + day + " " + year +", " + time);
       } else {
         return(month + " " + day + " " + year +", " + time);
+      }
+    },
+    _renderCustomTheme: function() {
+      if(this.theme.length === 2) {
+        const calBody = document.querySelector('#calendarBody');
+        calBody.style.color = this.theme[0];
+        calBody.style.backgroundColor = this.theme[1];
+      }
+      else if (this.theme.length === 3) {
+        calBody.style.backgroundImage = "linear-gradient(180deg," +this.theme[1]+ " ,"+ this.theme[2]+" )";;
       }
     },
 
@@ -610,6 +621,7 @@ const log = console.log;
         this._renderToggleBar();
         this._renderAddApp();
         this._addThisMonthAppointments();
+        this._renderCustomTheme();
         const a = this._saveDates();
         this.dates = a;
     },
@@ -981,10 +993,12 @@ const log = console.log;
       const calBody = document.querySelector('#calendarBody');
       if (type === "solid") {
         calBody.style.backgroundColor = bgColour;
+        this.theme = [textColour, bgColour];
       }
       else if (type === "gradient") {
         if (bgColour.length > 2) {
           calBody.style.backgroundImage = "linear-gradient(180deg," +bgColour[0]+ " ,"+ bgColour[1]+" )";
+          this.theme = [textColour, bgColour[0], bgColour[1]];
         }
       }
       calBody.style.color = textColour;
