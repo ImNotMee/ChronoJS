@@ -8,7 +8,7 @@ Documentation Link: https://chronojs.herokuapp.com/documentation.html
 
 To initalize the calendar module:
 
-``` 
+```
     const cMonth = 7; // 7 = August
     const cyear = 2020; // current year is 2020
     const calen = new Calendar(cyear, cMonth);
@@ -35,7 +35,7 @@ Example of how the list would look like:
         endTime: new Date(2020, 7,11,21, 30), // (year, month, day, hour, minutes, seconds)
         type: "important"
       }]
-      
+
       // to load in the appointments, simply use this method (calen is the calendar object)
       calen.loadAppointments(app);
 ```
@@ -108,6 +108,12 @@ deleteAppointment(appID);
 | variable  | Type   | Description                          |
 |-----------|--------|--------------------------------------|
 | appID     | int    | the Appointment ID                   |
+
+### getAppointments
+Functionality: gets a list of appointments for current calendar month.
+```
+getAppointments();
+```
 
 ### editAppointments
 Functionality: Edit an existing appointment.
