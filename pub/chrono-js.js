@@ -344,7 +344,7 @@ const log = console.log;
 
       if (jumpM >= 1 && jumpM <= 12 && jumpY > 0 && jumpY < 9999) {
         this.month = jumpM - 1;
-        this.year = jumpY;
+        this.year = parseInt(jumpY);
         this._updateCalendar();
       }
       else {
