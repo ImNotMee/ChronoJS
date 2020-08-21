@@ -8,6 +8,7 @@ const log = console.log;
       this.appointments = [];
       this.romanNumeral = false;
       this.dates = {};
+      this.started = false;
   }
 
   function Appointment(name, notes, start, end, type) {
@@ -570,7 +571,8 @@ const log = console.log;
       const toggleBar = document.createElement("div");
       toggleBar.id= "toggleBar";
       eventBox.appendChild(toggleBar);
-      calBody.appendChild(eventBox)
+      calBody.appendChild(eventBox);
+
 
       // calendar
       const calContainer = document.createElement("div");
@@ -591,7 +593,11 @@ const log = console.log;
     },
 
     startCalendar: function() {
-      this._renderCalendar();
+      if (!this.started) {
+        this._renderCalendar();
+        this.started = true;
+      }
+
     },
 
     _renderCalendar: function() {

@@ -12,46 +12,110 @@
     <a href="index.html">Home</a>
   </div>
 
-  <div id="doc">
-    <h1>Appointment</h1>
-    <p>Creates an Appointment Object</p>
-    <p>new Appointment(name, notes, startTime, endTime, type)<p>
-    <table id="documentation">
-        <tr>
-          <th>Name</th>
-          <th>Type</th>
-          <th>Description</th>
-        </tr>
-        <tr>
-          <td>name</td>
-          <td>String</td>
-          <td>The name of the event/appointment</td>
-        </tr>
-        <tr>
-          <td>notes</td>
-          <td>String</td>
-          <td>Any additional details for this appointment/event</td>
-        </tr>
-        <tr>
-          <td>startTime</td>
-          <td>Date</td>
-          <td>The starting time of the event/appointment</td>
-        </tr>
-        <tr>
-          <td>endTime</td>
-          <td>Date</td>
-          <td>The end time of the event/appointment</td>
-        </tr>
-        <tr>
-          <td>type</td>
-          <td>String</td>
-          <td>type of appointment</td>
-        </tr>
-      </table>
+  <div id="getStarted">
+    <h1>Getting Started</h1>
+    <p>To initalize the calendar module</p>
+    <pre id="code">
 
-    <h1>Calendar</h1>
+      const cMonth = 7; // 7 = August
+      const cyear = 2020; // current year is 2020
+      const calen = new Calendar(cyear, cMonth);
+      calen.startCalendar();
+    </pre>
+
+    <p>To load in appointments you must have a list of Appointments objects</p>
+    <p>Example of how the list would look like: </p>
+    <pre id="code">
+
+      const apps = [
+      {  id: 0,
+        name: "Example 1",
+        notes: "",
+        startTime: new Date(2020, 7, 16, 11,0), // (year, month, day, hour, minutes, seconds)
+        endTime: new Date(2020,7, 16, 12, 30), // (year, month, day, hour, minutes, seconds)
+        type: "urgent"
+      },
+      {
+        id: 1,
+        name: "Example 2",
+        notes: "Optional Notes",
+        startTime: new Date(2020,7, 11,18,0), // (year, month, day, hour, minutes, seconds)
+        endTime: new Date(2020, 7,11,21, 30), // (year, month, day, hour, minutes, seconds)
+        type: "important"
+      }]
+
+    </pre>
+    <pre id="code">
+
+      // to load in the appointments, simply use this method (calen is the calendar object)
+      calen.loadAppointments(app);
+    </pre>
+    <p>Or by using the addAppointment function</p>
+    <pre id="code">
+
+      const startTime = new Date(2020,7, 21,22,0);
+      const endTime = new Date(2020,7, 21, 23,0);
+      calen.addAppointment("Example 3", "no notes", startTime, endTime, "important");
+    </pre>
+    <p>When first initalize the calendar all the UI elements will display.</p>
+    <p>To remove any of the UI elements from displaying, refer to the toggle functions.</p>
+    <pre id="code">
+
+      // Example of removing the options element from the module
+      calen.toggleOptions(false);
+    </pre>
+
+  </div>
+
+  <br>
+  <br>
+  <h1>Calendar and Appointment Object</h1>
+  <div id="doc">
+    <h2>Appointment</h2>
+    <p>Creates an Appointment Object</p>
+    <pre id="code">
+
+    new Appointment(name, notes, startTime, endTime, type);
+    </pre>
+    <table id="documentation">
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+      <tr>
+        <td>name</td>
+        <td>String</td>
+        <td>The name of the event/appointment</td>
+      </tr>
+      <tr>
+        <td>notes</td>
+        <td>String</td>
+        <td>Any additional details for this appointment/event</td>
+      </tr>
+      <tr>
+        <td>startTime</td>
+        <td>Date</td>
+        <td>The starting time of the event/appointment</td>
+      </tr>
+      <tr>
+        <td>endTime</td>
+        <td>Date</td>
+        <td>The end time of the event/appointment</td>
+      </tr>
+      <tr>
+        <td>type</td>
+        <td>String</td>
+        <td>type of appointment</td>
+      </tr>
+    </table>
+
+    <h2>Calendar</h2>
     <p>Creates the calendar</p>
-    <p>new Calendar(year, month)<p>
+    <pre id="code">
+
+    new Calendar(year, month);
+    </pre>
     <table id="documentation">
       <tr>
         <th>Name</th>
@@ -61,190 +125,258 @@
       <tr>
         <td>year</td>
         <td>int</td>
-        <td>the current year</td>
+        <td>the year for the calendar to start</td>
       </tr>
       <tr>
         <td>month</td>
         <td>int</td>
-        <td>the current month (0 - 11) 0 => Jan ... 11 => Dec </td>
+        <td>the month for the calendar to start (0 = Jan ... 11 = Dec)</td>
       </tr>
     </table>
+    <br>
+    <br>
+    <h1>Calendar Object Functions</h1>
+    <div id="funct">
+      <h2>startCalendar</h2>
+      <p>Functionality: initializes the calendar and renders it.</p>
+      <pre id="code">
 
-  <div id="funct">
-    <h1>Functions</h1>
-    <h2>startCalendar</h2>
-    <p>Functionality: initializes the calendar and renders it.</p>
-    <p>startCalendar()<p>
+      startCalendar();
+      </pre>
+
+      <h2>addAppointment</h2>
+      <p>Functionality: Adds a new appointment into the calendar object</p>
+      <pre id="code">
+
+      addAppointment(name, notes, start, end, type);
+      </pre>
+      <table id="documentation">
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+        <tr>
+          <td>name</td>
+          <td>String</td>
+          <td>The name for the appointment</td>
+        </tr>
+        <tr>
+          <td>notes</td>
+          <td>String</td>
+          <td>Optional: any notes for the appointment</td>
+        </tr>
+        <tr>
+          <td>startTime</td>
+          <td>Date</td>
+          <td>The new start time for the appointment (YYYY-MM-DDTHH:MM)</td>
+        </tr>
+        <tr>
+          <td>endTime</td>
+          <td>Date</td>
+          <td>The new end time for the appointment (YYYY-MM-DDTHH:MM)</td>
+        </tr>
+        <tr>
+          <td>type</td>
+          <td>String</td>
+          <td>Either Important, Not important or Urgent as the type</td>
+        </tr>
+      </table>
+
+      <h2>deleteAppointment</h2>
+      <p>Functionality: Removes the appointment from the list of appointments</p>
+      <pre id="code">
+
+      deleteAppointment(appID);
+      </pre>
+      <table id="documentation">
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+        <tr>
+          <td>appID</td>
+          <td>int</td>
+          <td>The appointment id</td>
+        </tr>
+      </table>
+
+      <h2>editAppointments</h2>
+      <p>Functionality: Edit an existing appointment</p>
+      <pre id="code">
+
+      editAppointments(id, name, notes, startTime, endTime, type);
+      </pre>
+      <table id="documentation">
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+        <tr>
+          <td>id</td>
+          <td>int</td>
+          <td>The appointment id</td>
+        </tr>
+        <tr>
+          <td>name</td>
+          <td>String</td>
+          <td>The new name for the appointment</td>
+        </tr>
+        <tr>
+          <td>notes</td>
+          <td>String</td>
+          <td>Optional: any notes for the appointment</td>
+        </tr>
+        <tr>
+          <td>startTime</td>
+          <td>Date</td>
+          <td>The new start time for the appointment (YYYY-MM-DDTHH:MM)</td>
+        </tr>
+        <tr>
+          <td>endTime</td>
+          <td>Date</td>
+          <td>The new end time for the appointment (YYYY-MM-DDTHH:MM)</td>
+        </tr>
+        <tr>
+          <td>type</td>
+          <td>String</td>
+          <td>Either Important, Not important or Urgent as the type</td>
+        </tr>
+
+      </table>
+
+      <h2>loadAppointments</h2>
+      <p>Functionality: Loads the list of appointments into the calendar</p>
+      <pre id="code">
+
+      loadAppointments(appointments);
+      </pre>
+      <table id="documentation">
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+        <tr>
+          <td>appointments</td>
+          <td>List</td>
+          <td>A list of appointments objects</td>
+        </tr>
+      </table>
 
 
-    <h2>deleteAppointment</h2>
-    <p>Functionality: Removes the appointment from the list of appointments</p>
-    <p>deleteAppointment(appID)<p>
-    <table id="documentation">
-      <tr>
-        <th>Name</th>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-      <tr>
-        <td>appID</td>
-        <td>int</td>
-        <td>The appointment id</td>
-      </tr>
-    </table>
+      <h2>alertAppointments</h2>
+      <p>Functionality: Alerts the user when there are appointments within 1 hour</p>
+      <pre id="code">
 
-    <h2>editAppointments</h2>
-    <p>Functionality: Edit an existing appointment</p>
-    <p>editAppointments(id, name, notes, startTime, endTime, type)<p>
-    <table id="documentation">
-      <tr>
-        <th>Name</th>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-      <tr>
-        <td>id</td>
-        <td>int</td>
-        <td>The appointment id</td>
-      </tr>
-      <tr>
-        <td>name</td>
-        <td>String</td>
-        <td>The new name for the appointment</td>
-      </tr>
-      <tr>
-        <td>notes</td>
-        <td>String</td>
-        <td>Optional: any notes for the appointment</td>
-      </tr>
-      <tr>
-        <td>startTime</td>
-        <td>Date</td>
-        <td>The new start time for the appointment (YYYY-MM-DDTHH:MM)</td>
-      </tr>
-      <tr>
-        <td>endTime</td>
-        <td>Date</td>
-        <td>The new end time for the appointment (YYYY-MM-DDTHH:MM)</td>
-      </tr>
-      <tr>
-        <td>type</td>
-        <td>String</td>
-        <td>Either Important, Not important or Urgent as the type</td>
-      </tr>
+      alertAppointments();
+      </pre>
+      <h2>toggleAddAppForm</h2>
+      <p>Functionality: To toggle the UI for the add appointments Form</p>
+      <pre id="code">
 
-    </table>
+      toggleAddAppForm(toggle);
+      </pre>
+      <table id="documentation">
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+        <tr>
+          <td>toggle</td>
+          <td>Boolean</td>
+          <td>A true or false input to indicate on/off</td>
+        </tr>
+      </table>
 
-    <h2>loadAppointments</h2>
-    <p>Functionality: Loads the list of appointments into the calendar</p>
-    <p>loadAppointments(appointments)<p>
-    <table id="documentation">
-      <tr>
-        <th>Name</th>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-      <tr>
-        <td>appointments</td>
-        <td>List</td>
-        <td>A list of appointments objects</td>
-      </tr>
-    </table>
+      <h2>toggleOptions</h2>
+      <p>Functionality: To toggle the UI for the Settings</p>
+      <pre id="code">
 
+      toggleOptions(toggle);
+      </pre>
+      <table id="documentation">
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+        <tr>
+          <td>toggle</td>
+          <td>Boolean</td>
+          <td>A true or false input to indicate on/off</td>
+        </tr>
+      </table>
 
-    <h2>alertAppointments</h2>
-    <p>Functionality: Alerts the user when there are appointments within 1 hour</p>
-    <p>alertAppointments()<p>
+      <h2>toggleAppList</h2>
+      <p>Functionality: To toggle the UI for the Appointment list</p>
+      <pre id="code">
 
-    <h2>toggleAddAppForm</h2>
-    <p>Functionality: To toggle the UI for the add appointments Form</p>
-    <p>toggleAddAppForm(toggle)<p>
-    <table id="documentation">
-      <tr>
-        <th>Name</th>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-      <tr>
-        <td>toggle</td>
-        <td>Boolean</td>
-        <td>A true or false input to indicate on/off</td>
-      </tr>
-    </table>
+      toggleAppList(toggle);
+      </pre>
+      <table id="documentation">
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+        <tr>
+          <td>toggle</td>
+          <td>Boolean</td>
+          <td>A true or false input to indicate on/off</td>
+        </tr>
+      </table>
 
-    <h2>toggleOptions</h2>
-    <p>Functionality: To toggle the UI for the Settings</p>
-    <p>toggleOptions(toggle)<p>
-    <table id="documentation">
-      <tr>
-        <th>Name</th>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-      <tr>
-        <td>toggle</td>
-        <td>Boolean</td>
-        <td>A true or false input to indicate on/off</td>
-      </tr>
-    </table>
+      <h2>toggleToggleBar</h2>
+      <p>Functionality: To toggle the UI for the toggle bar</p>
+      <pre id="code">
 
-    <h2>toggleAppList</h2>
-    <p>Functionality: To toggle the UI for the Appointment list</p>
-    <p>toggleAppList(toggle)<p>
-    <table id="documentation">
-      <tr>
-        <th>Name</th>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-      <tr>
-        <td>toggle</td>
-        <td>Boolean</td>
-        <td>A true or false input to indicate on/off</td>
-      </tr>
-    </table>
+      toggleToggleBar(toggle);
+      </pre>
+      <table id="documentation">
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+        <tr>
+          <td>toggle</td>
+          <td>Boolean</td>
+          <td>A true or false input to indicate on/off</td>
+        </tr>
+      </table>
 
-    <h2>toggleToggleBar</h2>
-    <p>Functionality: To toggle the UI for the toggle bar</p>
-    <p>toggleToggleBar(toggle)<p>
-    <table id="documentation">
-      <tr>
-        <th>Name</th>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-      <tr>
-        <td>toggle</td>
-        <td>Boolean</td>
-        <td>A true or false input to indicate on/off</td>
-      </tr>
-    </table>
+      <h2>calendarTheme</h2>
+      <p>Functionality: To set a custom theme for the calendar</p>
+      <pre id="code">
 
-    <h2>calendarTheme</h2>
-    <p>Functionality: To set a custom theme for the calendar</p>
-    <p>calendarTheme(textColour, bgColour, type)<p>
-    <table id="documentation">
-      <tr>
-        <th>Name</th>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-      <tr>
-        <td>textColour</td>
-        <td>String</td>
-        <td>A hex colour p in the form of a string for text colour.</td>
-      </tr>
-      <tr>
-        <td>bgColour</td>
-        <td>String/List of Strings</td>
-        <td>A single hex colour for a solid colour effect and a two hex colours in a list for a gradient effect</td>
-      </tr>
-      <tr>
-        <td>type</td>
-        <td>String</td>
-        <td>To indicate whether it is a solid or a gradient effect</td>
-      </tr>
-    </table>
-  </div>
+      calendarTheme(textColour, bgColour, type);
+      </pre>
+      <table id="documentation">
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+        <tr>
+          <td>textColour</td>
+          <td>String</td>
+          <td>A hex colour p in the form of a string for text colour.</td>
+        </tr>
+        <tr>
+          <td>bgColour</td>
+          <td>String/List of Strings</td>
+          <td>A single hex colour for a solid colour effect and a two hex colours in a list for a gradient effect</td>
+        </tr>
+        <tr>
+          <td>type</td>
+          <td>String</td>
+          <td>To indicate whether it is a solid or a gradient effect</td>
+        </tr>
+      </table>
+    </div>
   </div>
 </body>
