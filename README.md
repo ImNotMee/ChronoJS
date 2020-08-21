@@ -20,7 +20,7 @@ Example of how the list would look like:
 
 ```
   const apps = [
-      {  id: 0,
+      {  
         name: "Example 1",
         notes: "",
         startTime: new Date(2020, 7, 16, 11,0), // (year, month, day, hour, minutes, seconds)
@@ -28,7 +28,6 @@ Example of how the list would look like:
         type: "urgent"
       },
       {
-        id: 1,
         name: "Example 2",
         notes: "Optional Notes",
         startTime: new Date(2020,7, 11,18,0), // (year, month, day, hour, minutes, seconds)
