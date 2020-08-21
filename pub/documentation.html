@@ -23,7 +23,7 @@
       calen.startCalendar();
     </pre>
 
-    <p>To load in appointments you must have a list of Appointments objects</p>
+    <p>To load in appointments you must have a list of Appointments objects:</p>
     <p>Example of how the list would look like: </p>
     <pre id="code">
 
@@ -47,8 +47,8 @@
     </pre>
     <pre id="code">
 
-      // to load in the appointments, simply use this method (calen is the calendar object)
-      calen.loadAppointments(app);
+        // to load in the appointments, simply use this method (calen is the calendar object)
+        calen.loadAppointments(app);
     </pre>
     <p>Or by using the addAppointment function</p>
     <pre id="code">
@@ -58,7 +58,7 @@
       calen.addAppointment("Example 3", "no notes", startTime, endTime, "important");
     </pre>
     <p>When first initalize the calendar all the UI elements will display.</p>
-    <p>To remove any of the UI elements from displaying, refer to the toggle functions.</p>
+      <p>To remove any of the UI elements from displaying, refer to the toggle functions.</p>
     <pre id="code">
 
       // Example of removing the options element from the module
@@ -79,9 +79,9 @@
     </pre>
     <table id="documentation">
       <tr>
-        <th>Name</th>
+          <th>Variable</th>
         <th>Type</th>
-        <th>Description</th>
+          <th>Description</th>
       </tr>
       <tr>
         <td>name</td>
@@ -89,7 +89,7 @@
         <td>The name of the event/appointment</td>
       </tr>
       <tr>
-        <td>notes</td>
+          <td>notes</td>
         <td>String</td>
         <td>Any additional details for this appointment/event</td>
       </tr>
@@ -106,36 +106,36 @@
       <tr>
         <td>type</td>
         <td>String</td>
-        <td>type of appointment</td>
+        <td>type of appointment (important, notImportant, urgent)</td>
       </tr>
     </table>
 
     <h2>Calendar</h2>
-    <p>Creates the calendar</p>
+    <p>Creates the Calendar object</p>
     <pre id="code">
 
     new Calendar(year, month);
     </pre>
     <table id="documentation">
       <tr>
-        <th>Name</th>
+        <th>Variable</th>
         <th>Type</th>
         <th>Description</th>
       </tr>
       <tr>
         <td>year</td>
         <td>int</td>
-        <td>the year for the calendar to start</td>
+        <td>The year for the calendar to start</td>
       </tr>
       <tr>
         <td>month</td>
         <td>int</td>
-        <td>the month for the calendar to start (0 = Jan ... 11 = Dec)</td>
+        <td>The month for the calendar to start (0 = Jan ... 11 = Dec)</td>
       </tr>
     </table>
     <br>
     <br>
-    <h1>Calendar Object Functions</h1>
+    <h1>Calendar API</h1>
     <div id="funct">
       <h2>startCalendar</h2>
       <p>Functionality: initializes the calendar and renders it.</p>
@@ -152,7 +152,7 @@
       </pre>
       <table id="documentation">
         <tr>
-          <th>Name</th>
+          <th>Variable</th>
           <th>Type</th>
           <th>Description</th>
         </tr>
@@ -169,7 +169,7 @@
         <tr>
           <td>startTime</td>
           <td>Date</td>
-          <td>The new start time for the appointment (YYYY-MM-DDTHH:MM)</td>
+            <td>The new start time for the appointment (YYYY-MM-DDTHH:MM)</td>
         </tr>
         <tr>
           <td>endTime</td>
@@ -187,11 +187,11 @@
       <p>Functionality: Removes the appointment from the list of appointments</p>
       <pre id="code">
 
-      deleteAppointment(appID);
+        deleteAppointment(appID);
       </pre>
       <table id="documentation">
         <tr>
-          <th>Name</th>
+          <th>Variable</th>
           <th>Type</th>
           <th>Description</th>
         </tr>
@@ -206,11 +206,11 @@
       <p>Functionality: Edit an existing appointment</p>
       <pre id="code">
 
-      editAppointments(id, name, notes, startTime, endTime, type);
+        editAppointments(id, name, notes, startTime, endTime, type);
       </pre>
       <table id="documentation">
         <tr>
-          <th>Name</th>
+          <th>Variable</th>
           <th>Type</th>
           <th>Description</th>
         </tr>
@@ -255,7 +255,7 @@
       </pre>
       <table id="documentation">
         <tr>
-          <th>Name</th>
+          <th>Variable</th>
           <th>Type</th>
           <th>Description</th>
         </tr>
@@ -268,11 +268,12 @@
 
 
       <h2>alertAppointments</h2>
-      <p>Functionality: Alerts the user when there are appointments within 1 hour</p>
+        <p>Functionality: Alerts the user when there are appointments within 1 hour.</p>
       <pre id="code">
 
       alertAppointments();
       </pre>
+
       <h2>toggleAddAppForm</h2>
       <p>Functionality: To toggle the UI for the add appointments Form</p>
       <pre id="code">
@@ -281,7 +282,7 @@
       </pre>
       <table id="documentation">
         <tr>
-          <th>Name</th>
+          <th>Variable</th>
           <th>Type</th>
           <th>Description</th>
         </tr>
@@ -300,7 +301,7 @@
       </pre>
       <table id="documentation">
         <tr>
-          <th>Name</th>
+          <th>Variable</th>
           <th>Type</th>
           <th>Description</th>
         </tr>
@@ -319,7 +320,7 @@
       </pre>
       <table id="documentation">
         <tr>
-          <th>Name</th>
+          <th>Variable</th>
           <th>Type</th>
           <th>Description</th>
         </tr>
@@ -338,7 +339,7 @@
       </pre>
       <table id="documentation">
         <tr>
-          <th>Name</th>
+          <th>Variable</th>
           <th>Type</th>
           <th>Description</th>
         </tr>
@@ -357,7 +358,7 @@
       </pre>
       <table id="documentation">
         <tr>
-          <th>Name</th>
+          <th>Variable</th>
           <th>Type</th>
           <th>Description</th>
         </tr>
