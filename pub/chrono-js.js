@@ -62,6 +62,7 @@ const log = console.log;
       return sorted;
     },
 
+     // formating the time to display on calendar and app list
      _dateFormater: function(date) {
       const year = date.getFullYear();
       const month = Calendar.MONTHS[date.getMonth()];
@@ -81,6 +82,7 @@ const log = console.log;
         return(month + " " + day + " " + year +", " + time);
       }
     },
+    
     _renderCustomTheme: function() {
       if(this.theme.length === 2) {
         const calBody = document.querySelector('#calendarBody');
@@ -153,6 +155,7 @@ const log = console.log;
    _updateCalendar: function () {
       this._renderMonth();
       const currMonthData = this._getMonthData();
+      // update the dates element of the months
       let elements = document.querySelectorAll('#dates');
       let date = 1;
       let temp = 0;
@@ -180,6 +183,7 @@ const log = console.log;
       this._addThisMonthAppointments();
     },
 
+    // render roman numerals option
     _renderRoman: function (box) {
       const romanOptions = document.createElement("form");
       romanOptions.id = "romanOptions";
@@ -210,6 +214,7 @@ const log = console.log;
       box.appendChild(romanOptions);
     },
 
+    // render themes option
     _renderTheme: function(box) {
       const themeOptions = document.createElement("form");
       themeOptions.id = "themeOptions";
@@ -253,6 +258,7 @@ const log = console.log;
       box.appendChild(themeOptions);
     },
 
+    // render Calendar display options
     _renderCalendarDis: function(box) {
       const displayOptions = document.createElement("form");
       displayOptions.id = "displayOptions";
@@ -507,6 +513,7 @@ const log = console.log;
       topCalDiv.appendChild(buttons[1]);
     },
 
+    // save the dates in the calendar object
     _saveDates: function() {
       const dates = document.querySelectorAll('#dates');
       let a = {};
@@ -528,12 +535,14 @@ const log = console.log;
       return a;
     },
 
+    // Clear dates element to rerender
     _clearCalendarBox: function() {
        while (document.getElementById("dates")) {
           document.getElementById("dates").remove();
       }
     },
 
+    // on change to week # view
     _weekView: function(weekNum) {
       this._clearCalendarBox();
       let calBody = document.getElementById("container");
@@ -545,6 +554,8 @@ const log = console.log;
       calBody.appendChild(calBox);
     },
 
+
+    // The set up for the divs and the whole library
     _initDivs: function() {
       const calBody = document.getElementById("calendarBody");
       const eventBox = document.createElement("div");
@@ -603,14 +614,15 @@ const log = console.log;
       calBody.appendChild(calContainer);
     },
 
+    // The function use to start the calendar object
     startCalendar: function() {
       if (!this.started) {
         this._renderCalendar();
         this.started = true;
       }
-
     },
 
+    // Render all elements of the calendar
     _renderCalendar: function() {
         // For setting up the grid based on month
         this._initDivs();
@@ -626,6 +638,7 @@ const log = console.log;
         this.dates = a;
     },
 
+    // Check for valid time function
     _dateEntry: function(startD, startT, endT) {
           const start = new Date(startD+"T"+startT);
           const formatedS = start.toUTCString();
@@ -638,6 +651,7 @@ const log = console.log;
           return [formatedS, formatedE];
         },
 
+   // roman Numeral DOM manipulation
     _changeRomanNumerals: function(e) {
       e.preventDefault();
       const selected = document.querySelector('#roman');
@@ -671,6 +685,7 @@ const log = console.log;
       this._updateCalendar();
     },
 
+    // calendar theme DOM manipulation
     _changeTheme: function(e) {
       e.preventDefault();
       const selected = document.querySelector('#theme');
@@ -700,6 +715,7 @@ const log = console.log;
       }
     },
 
+    // add appointment from form DOM manipulation
     _addAppointmentDOM: function(e) {
       e.preventDefault();
       const name = document.querySelector('#newAppName').value;
@@ -719,6 +735,7 @@ const log = console.log;
       }
     },
 
+    // rerender month
     _reRenderMonth: function() {
       const calBody = document.getElementById("CalendarModule");
       log(this.dates);
@@ -732,6 +749,7 @@ const log = console.log;
       }
     },
 
+    // the form for which week was selected for week/month view
      _weekSelect: function(e) {
       e.preventDefault();
       const selected = document.querySelector('#display');
@@ -786,6 +804,7 @@ const log = console.log;
         this._reRenderMonth();
       }
     },
+
     _addNewAppointment: function(name, notes, start, end, type) {
       const app = this.addAppointment(name, notes, start, end, type);
       const eventBox = document.getElementById("appointments");
