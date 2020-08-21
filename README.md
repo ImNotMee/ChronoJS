@@ -14,6 +14,7 @@ To initalize the calendar module:
     const calen = new Calendar(cyear, cMonth);
     calen.startCalendar();
 ```
+Please import both the "styles.css" and "chrono-js.js" into the html where this library is getting used.
 
 To load in appointments you must have a list of Appointments objects:
 Example of how the list would look like:
