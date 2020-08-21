@@ -118,38 +118,28 @@ const log = console.log;
       app = this._sortingAppointments(app);
       // adding to the event list
       this._addToAppList(eventBox, app);
-
       // adding to celendar
       let elements = document.querySelectorAll('#dates');
 
       for (let n = 0; n < elements.length; n++) {
         for (let i = 0; i < app.length; i++) {
+          let romanToDate = -2;
           if (this.romanNumeral) {
-            let romanToDate = Calendar.ROMAN.findIndex(roman => roman === elements[n].innerText);
-            if (romanToDate + 1 === app[i].startTime.getDate()) {
-              let appBox = document.createElement("div");
-              appBox.id = "app";
-              appBox.innerHTML = app[i].name.bold() + " - " + this._dateFormater(app[i].startTime) + " - " + this._dateFormater(app[i].endTime);
-              if (app[i].notes !== "") {
-                appBox.innerHTML = appBox.innerHTML + "<br /> <strong>Notes:</strong> " + app[i].notes;
-              }
-              appBox.style.backgroundColor = app[i].type;
-              elements[n].appendChild(appBox);
-            }
-          } else {
-            if (parseInt(elements[n].innerText) === app[i].startTime.getDate()) {
-              let appBox = document.createElement("div");
-              appBox.id = "app";
-              appBox.innerHTML = app[i].name.bold() + " - " + this._dateFormater(app[i].startTime) + " - " + this._dateFormater(app[i].endTime);
-              if (app[i].notes !== "") {
-                appBox.innerHTML = appBox.innerHTML + "<br /> <strong>Notes:</strong> " + app[i].notes;
-              }
-              appBox.style.backgroundColor = app[i].type;
-              elements[n].appendChild(appBox);
-            }
+            romanToDate = Calendar.ROMAN.findIndex(roman => roman === elements[n].innerText);
           }
+          if (romanToDate + 1 === app[i].startTime.getDate() || parseInt(elements[n].innerText) === app[i].startTime.getDate()) {
+              let appBox = document.createElement("div");
+              appBox.id = "app";
+              appBox.innerHTML = app[i].name.bold() + " - " + this._dateFormater(app[i].startTime) + " - " + this._dateFormater(app[i].endTime);
+              if (app[i].notes !== "") {
+                appBox.innerHTML = appBox.innerHTML + "<br /> <strong>Notes:</strong> " + app[i].notes;
+              }
+              appBox.style.backgroundColor = app[i].type;
+              elements[n].appendChild(appBox);
+            }
         }
       }
+      this.dates
     },
 
    _updateCalendar: function () {
@@ -663,7 +653,7 @@ const log = console.log;
       // Iusse here
       let day = 0;
       if (roman === "on") {
-        this.romanNumeral =  true;
+        this.romanNumeral = true;
         dates.forEach(date => {
           if (date.innerText != "") {
             date.innerText = Calendar.ROMAN[day];
@@ -682,6 +672,7 @@ const log = console.log;
           });
       }
       this.dates = this._saveDates();
+      log(this.dates);
       this._updateCalendar();
     },
 
@@ -818,14 +809,21 @@ const log = console.log;
         // adding to calendar
         let elements = document.querySelectorAll('#dates');
         for (let n = 0; n < elements.length; n++) {
-          let temp = elements[n].innerText;
-          if (n >= 9) {
-               temp = temp.substring(0,2);
+          let romanToDate = -2;
+          let temp = -1;
+          if (this.romanNumeral) {
+            romanToDate = Calendar.ROMAN.findIndex(roman => roman === elements[n].innerText);
           }
           else {
-             temp = temp.substring(0,1);
+            temp = elements[n].innerText;
+            if (n >= 9) {
+                 temp = temp.substring(0,2);
+            }
+            else {
+               temp = temp.substring(0,1);
+            }
           }
-          if (parseInt(temp) == app.startTime.getDate()) {
+          if (parseInt(temp) == app.startTime.getDate() || romanToDate + 1 === app[i].startTime.getDate()) {
             let appBox = document.createElement("div");
             appBox.id = "app";
             appBox.innerHTML = app.name.bold() + " - " + this._dateFormater(app.startTime) + " - " + this._dateFormater(app.endTime);
